@@ -1,0 +1,197 @@
+path_to_xml: "skydio_x2/scene.xml"
+
+gui:
+  geometry_top_left_x: 0
+  geometry_top_left_y: 0
+  geometry_width: 500
+  geometry_height: 500
+  precision: 2
+
+  pad:
+    slider:
+      low: -5
+      high: 5
+      step: 0.1
+
+  wind:
+    slider:
+      low: -10
+      high: 10
+      step: 0.1
+
+
+logger:
+  name: app
+  path: app.log
+  fmt: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+  datefmt: "%Y-%m-%d %H:%M:%S"
+
+plotter:
+  dir_name: plots
+  ext: png
+
+
+Quadrotor:
+  xml_body_name: Quadrotor
+  cda: 0.04
+  sensors:
+    pos: Quadrotor_framepos
+    vel: Quadrotor_velocimeter
+    framequat: Quadrotor_framequat
+    gyro: Quadrotor_gyro
+    accelerometer: Quadrotor_accelerometer
+    rangefinder: Quadrotor_rangefinder
+
+
+Pad:
+  xml_body_name: Pad
+  cda: 0.25
+  sensors:
+    pos: Pad_framepos
+    vel: Pad_velocimeter
+    touch: Pad_touch
+  radius: 1
+  default_velocity: [0, 0, 0]
+
+
+Follow_Orch:
+  viewer:
+    camera_distance_coef: 3
+    camera_distance_ff: 1.5
+  env:
+    default_wind: [0, 0, 0]
+    air_density: 1.225
+
+Predictor:
+
+Detector:
+  history_max_len: 200
+  round_precision: 10
+  px_to_meter: 0.0333
+  height_trained: 10
+  image_size_trained: [320, 240]
+
+  tol_stddev: 0.2
+  long_term_len: 200
+  short_term_len: 20
+
+QuadrotorController:
+  outer_loop:
+    hz: 20
+
+  descend_phases:
+    names: ['fast-drop', 'approach', 'touchdown']
+    ff_z:     [3, 0.5, 0]
+    pid_z_ul: [0.1, 0.1, 0.1]
+    pid_z_ll: [-0.3, -0.05, -0.005]
+    epsilon: [0.1, 0.05, 0.25]
+
+  pids:
+    x:
+      kp: 0.15
+      kd: 0.4
+      setpoint: 0
+      output_limit: 0.2
+    y:
+      kp: 0.15
+      kd: 0.4
+      setpoint: 0
+      output_limit: 0.2
+    z:
+      kp: 0.15
+      kd: 0.55
+      setpoint: 0
+      output_limit: 0.2
+    ro:
+      kp: 0.50
+      kd: 0.30
+      setpoint: 0
+      output_limit: 0.1
+    pi:
+      kp: 0.50
+      kd: 0.20
+      setpoint: 0
+      output_limit: 0.1
+    ya:
+      kp: 0.50
+      kd: 0.50
+      setpoint: 0
+      output_limit: 2
+
+  ff:
+    x: 1.74
+    y: 1.74
+    z: 10
+    throttle: 3.2495625
+
+
+  mixing-matrix:
+    [
+      [ 1, 1, 1, 1 ],
+      [ 1, -1, 1, -1 ],
+      [ 1, -1, -1, 1 ],
+      [ 1, 1, -1, -1 ]
+    ]
+
+
+camera_streamer:
+  resolutions:
+    high: [640, 480]
+    low: [320, 240]
+  frequency: 30
+
+
+Noises:
+  Pos:
+    scale: 1
+    offset:
+      mean: 0
+      std: 2
+      low: -1.5
+      high: 1.5
+    drift_rate: 0
+
+  Vel:
+    scale: 1
+    offset:
+      mean: 0
+      std: 0
+      low: 0
+      high: 0
+    drift_rate: 0
+
+  Quat:
+    scale: 1
+    offset:
+      mean: 0
+      std: 0
+      low: 0
+      high: 0
+    drift_rate: 0
+
+  Gyro:
+    scale: 1
+    offset:
+      mean: 0
+      std: 0
+      low: 0
+      high: 0
+    drift_rate: 0
+
+  Accelerometer:
+    scale: 1
+    offset:
+      mean: 0
+      std: 0
+      low: 0
+      high: 0
+    drift_rate: 0
+
+  Rangefinder:
+    scale: 1
+    offset:
+      mean: 0
+      std: 0
+      low: 0
+      high: 0
+    drift_rate: 0
