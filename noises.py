@@ -2,7 +2,7 @@ import numpy as np
 
 from helpers import *
 
-from config import CONFIG
+from globals import *
 
 
 class BasicNoise:

@@ -1,8 +1,6 @@
 import numpy as np
 
-from logger import LOGGER
-from config import CONFIG
-
+from globals import *
 
 def sym_limits(x):
     return -x, x

@@ -2,9 +2,7 @@ from sensors import GPS, IMU, Rangefinder, Touch
 
 from helpers import *
 
-from environment import ENVIRONMENT
-from logger import LOGGER
-from config import CONFIG
+from globals import *
 
 
 class BasicModel:

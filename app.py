@@ -7,7 +7,7 @@ from orchestrators import Follow
 from guis import GUI
 from streamers import CameraStreamer
 
-from logger import LOGGER
+from globals import *
 
 
 class App:

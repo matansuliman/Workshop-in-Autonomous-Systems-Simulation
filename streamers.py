@@ -5,9 +5,7 @@ from PySide6.QtCore import Signal, QObject
 
 from helpers import *
 
-from environment import ENVIRONMENT
-from logger import LOGGER
-from config import CONFIG
+from globals import *
 from fps import BasicFPS
 
 

@@ -1,10 +1,11 @@
 import logging
-from config import CONFIG
 
 
 def setup_logger(
-    name=CONFIG["logger"]["name"],
-    log_file=CONFIG["logger"]["path"],
+    name="logger-empty",
+    log_file="log_file.log",
+    fmt=None,
+    datefmt=None,
     level=logging.DEBUG,
 ):
     # Create a custom logger
@@ -16,9 +17,7 @@ def setup_logger(
     stream_handler = logging.StreamHandler()
 
     # Formatters
-    formatter = logging.Formatter(
-        fmt=CONFIG["logger"]["fmt"], datefmt=CONFIG["logger"]["datefmt"]
-    )
+    formatter = logging.Formatter(fmt=fmt, datefmt=datefmt)
     file_handler.setFormatter(formatter)
     stream_handler.setFormatter(formatter)
 
@@ -28,6 +27,3 @@ def setup_logger(
         logger.addHandler(stream_handler)
 
     return logger
-
-
-LOGGER = setup_logger()

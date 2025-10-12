@@ -3,7 +3,7 @@ from loop_rate_limiters import RateLimiter, logging
 
 from helpers import *
 
-from environment import ENVIRONMENT
+from globals import *
 
 
 class BasicFPS:

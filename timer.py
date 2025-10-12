@@ -1,6 +1,7 @@
 # mytimer.py
 from datetime import datetime
-import time
+
+from globals import *
 
 class MyTimer:
     """

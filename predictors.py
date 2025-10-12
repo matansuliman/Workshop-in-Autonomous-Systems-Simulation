@@ -5,7 +5,7 @@ from helpers import *
 
 from detectors import ArUcoMarkerDetector
 
-from logger import LOGGER
+from globals import *
 
 
 class BasicPredictor:

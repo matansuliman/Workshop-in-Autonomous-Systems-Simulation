@@ -5,9 +5,7 @@ from models import Quadrotor, Pad
 from controllers import QuadrotorController, PadController
 from predictors import ArUcoMarkerPredictor
 
-from environment import ENVIRONMENT
-from logger import LOGGER
-from config import CONFIG
+from globals import *
 
 
 class BasicOrchestrator:

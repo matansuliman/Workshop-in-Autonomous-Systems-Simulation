@@ -5,9 +5,7 @@ from PySide6.QtWidgets import QApplication, QWidget
 
 from helpers import *
 
-from environment import ENVIRONMENT
-from config import CONFIG
-from logger import LOGGER
+from globals import *
 
 
 class GUI(QWidget):

@@ -5,8 +5,7 @@ from PySide6.QtCore import Signal, QObject
 from helpers import *
 from plots import plot
 
-from environment import ENVIRONMENT
-from logger import LOGGER
+from globals import *
 from fps import BasicFPS
 from timer import MyTimer
 

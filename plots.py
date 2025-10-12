@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 
 import os
 
-from logger import LOGGER
-from config import CONFIG
+from globals import *
 
 
 def plot_safe(ax, x, y, *args, **kwargs):

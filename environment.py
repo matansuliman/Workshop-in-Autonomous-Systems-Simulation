@@ -7,8 +7,6 @@ import mujoco.viewer
 import glfw
 import numpy as np
 
-from config import CONFIG
-
 
 @dataclass
 class WindConfig:
@@ -393,6 +391,3 @@ class ENV:
 
     def world_pos_of_body(self, body: Union[str, int]) -> np.ndarray:
         return self._data.xpos[self.body_id(body)].copy()
-
-
-ENVIRONMENT = ENV(CONFIG["path_to_xml"])

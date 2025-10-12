@@ -4,8 +4,7 @@ from collections import deque
 
 from helpers import *
 
-from logger import LOGGER
-from config import CONFIG
+from globals import *
 
 
 class BasicDetector:

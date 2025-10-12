@@ -3,9 +3,7 @@ from simple_pid import PID
 
 from helpers import *
 
-from environment import ENVIRONMENT
-from logger import LOGGER
-from config import CONFIG
+from globals import *
 
 
 class BasicController:

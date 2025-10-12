@@ -3,7 +3,7 @@ from helpers import *
 
 from scipy.spatial.transform import Rotation
 
-from environment import ENVIRONMENT
+from globals import *
 
 
 class MujocoSensor:
