@@ -1,7 +1,7 @@
 Self Evaluation: This project is far from perfect and here is a guideline how to make it that way
 
     - Timeout: trigger functions
-        - time based: limit elapsed time since the simulation started
+        done - time based: limit elapsed time since the simulation started
         - detection based: limit elapsed time since last detection of the platform
         - Catch-up: stuck or not closing the gap for a certain duration
         - Landing attempts: limit failover attempts
