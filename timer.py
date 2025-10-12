@@ -27,7 +27,7 @@ class MyTimer():
             raise ValueError("Timer not started")
         if self.paused:
             raise ValueError("Timer is already paused")
-        print('Pausing timer')
+        #print('Pausing timer')
         self.timepaused = datetime.now()
         self.paused = True
 
@@ -37,7 +37,7 @@ class MyTimer():
             raise ValueError("Timer not started")
         if not self.paused:
             raise ValueError("Timer is not paused")
-        print('Resuming timer')
+        #print('Resuming timer')
         pausetime = datetime.now() - self.timepaused
         self.timestarted = self.timestarted + pausetime
         self.paused = False
@@ -45,7 +45,7 @@ class MyTimer():
     def get(self):
         """ Returns a timedelta object showing the amount of time
             elapsed since the start time, less any pauses """
-        print('Get timer value')
+        #print('Get timer value')
         if self.timestarted is None:
             raise ValueError("Timer not started")
         if self.paused:
