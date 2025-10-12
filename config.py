@@ -1,9 +1,14 @@
 import yaml
 
+class ConfigProfile:
 
-def load_config(path="config.yaml"):
-    with open(path, "r") as f:
-        return yaml.safe_load(f)
+    def __init__(self, filename= 'config.yaml'):
+        with open(filename, "r") as f:
+            self._profile = yaml.safe_load(f)
+
+    def get_profile(self):
+        return self._profile
 
 
-CONFIG = load_config()
+
+CONFIG = ConfigProfile().get_profile()
