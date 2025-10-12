@@ -10,11 +10,12 @@ class MyTimer():
     timer.get() - should return the current time
     """
 
-    def __init__(self):
+    def __init__(self, ceil):
         print('Initializing timer')
         self.timestarted = None
         self.timepaused = None
         self.paused = False
+        self.ceil = ceil
 
     def start(self):
         """ Starts an internal timer by recording the current time """
