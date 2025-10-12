@@ -52,19 +52,3 @@ class MyTimer():
             return self.timepaused - self.timestarted
         else:
             return datetime.now() - self.timestarted
-
-if __name__ == "__main__":
-    t = MyTimer()
-    t.start()
-    print('Waiting 2 seconds'); time.sleep(2)
-    print(t.get())
-    print('Waiting 1 second'); time.sleep(1)
-    t.pause()
-    print('Waiting 2 seconds [paused]'); time.sleep(2)
-    print(t.get())
-    print('Waiting 1 second [paused]'); time.sleep(1)
-    print(t.get())
-    print('Waiting 1 second [paused]'); time.sleep(1)
-    t.resume()
-    print('Waiting 1 second'); time.sleep(1)
-    print(t.get())
