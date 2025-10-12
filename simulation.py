@@ -109,6 +109,5 @@ class SimulationRunner(QObject, BasicSimulationRunner):
             ENVIRONMENT.step()  # advance physics
             self._fps.maintain()
             elapsed = self._timer.get()
-            LOGGER.debug(f"Simulation elapsed time: {elapsed}")
 
         LOGGER.info("Simulation: Terminated")
