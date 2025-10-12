@@ -53,3 +53,6 @@ class MyTimer():
             return self.timepaused - self.timestarted
         else:
             return datetime.now() - self.timestarted
+
+    def done(self):
+        return self.get() > self.ceil
