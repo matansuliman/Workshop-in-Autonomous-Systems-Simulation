@@ -8,6 +8,7 @@ class MyTimer:
     timer.pause() - should pause the timer
     timer.resume() - should resume the timer
     timer.get() - should return the current time
+    timer.is_done() - return True if the timer is done
     """
 
     def __init__(self, ceil):
@@ -54,5 +55,5 @@ class MyTimer:
         else:
             return datetime.now() - self.timestarted
 
-    def done(self):
+    def is_done(self):
         return self.get().total_seconds() > self.ceil
