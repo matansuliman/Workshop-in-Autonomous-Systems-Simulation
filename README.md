@@ -52,6 +52,7 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 - `simulation.py` – main loop, pause/resume/terminate
 - `gui.py` - graphical user interface
 - `streamers.py` – offscreen render to detector(through simulation) and GUI
+- `timer.py` - pausable timer class for timeout simulation
 - `fps.py` - maintaining frequency of loops
 - `orchestrators.py` – scene logic (**Follow orchestrator**)
 - `models.py` – `Quadrotor`, `Pad` physical object with sensors & logging
@@ -61,12 +62,13 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 - `noises.py` - synthetic noise for sensors
 - `predictors.py` - simple predictor based on history
 - `detectors.py` – detects pad from streamer (ArUco marker detector)
-- `environment.py` – MuJoCo wrapper
-- `plots.py` - plotting logs on png images, called on exit
-- `logger.py` - global log
-- `config.py` / `config.yaml` - global config from yaml
+- `environment.py` – MuJoCo wrapper classes
+- `logger.py` - log class
+- `config.py` / `config.yaml` - config class loads configuration from yaml file
+- `globals.py` - global variables - config, logger, env.
 - `helpers.py` - global helper functions
 - `/skydio_x2` - MuJoCo xml files (world and objects), assets
+- `plots.py` - plotting logs on png images, called on exit
 
 ---
 
