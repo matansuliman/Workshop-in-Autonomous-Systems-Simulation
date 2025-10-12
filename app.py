@@ -3,7 +3,6 @@ import threading
 from PySide6.QtWidgets import QApplication
 
 from simulation import SimulationRunner
-from orchestrators import Follow
 from guis import GUI
 from streamers import CameraStreamer
 
@@ -14,7 +13,7 @@ class App:
     def __init__(self):
         LOGGER.info("App: Initiating")
         self._app = QApplication(sys.argv)
-        self._simulation = SimulationRunner(orchestrator=Follow)
+        self._simulation = SimulationRunner()
         self._camera_streamer = CameraStreamer(simulation=self._simulation)
         self._gui = GUI(simulation=self._simulation)
         LOGGER.info("App: Initiated")
