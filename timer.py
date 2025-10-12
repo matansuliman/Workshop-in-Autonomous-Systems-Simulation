@@ -11,7 +11,7 @@ class MyTimer:
     """
 
     def __init__(self, ceil):
-        print('Initializing timer')
+        #print('Initializing timer')
         self.timestarted = None
         self.timepaused = None
         self.paused = False
@@ -19,7 +19,7 @@ class MyTimer:
 
     def start(self):
         """ Starts an internal timer by recording the current time """
-        print("Starting timer")
+        #print("Starting timer")
         self.timestarted = datetime.now()
 
     def pause(self):
