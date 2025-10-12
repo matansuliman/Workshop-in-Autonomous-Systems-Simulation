@@ -2,6 +2,8 @@ import threading
 
 from PySide6.QtCore import Signal, QObject
 
+from orchestrators import Follow
+
 from helpers import *
 from plots import plot
 
@@ -57,7 +59,7 @@ class BasicSimulationRunner:
 class SimulationRunner(QObject, BasicSimulationRunner):
     status_ready = Signal(str)
 
-    def __init__(self, orchestrator):
+    def __init__(self, orchestrator= Follow):
         super().__init__(orchestrator=orchestrator)
         LOGGER.info(f"\tSimulation: Initiated {self.__class__.__name__}")
 
