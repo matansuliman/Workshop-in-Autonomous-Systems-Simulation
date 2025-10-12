@@ -2,7 +2,7 @@
 from datetime import datetime
 import time
 
-class MyTimer():
+class MyTimer:
     """
     timer.start() - should start the timer
     timer.pause() - should pause the timer
@@ -55,4 +55,4 @@ class MyTimer():
             return datetime.now() - self.timestarted
 
     def done(self):
-        return self.get() > self.ceil
+        return self.get().total_seconds() > self.ceil
