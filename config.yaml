@@ -1,5 +1,8 @@
 path_to_xml: "skydio_x2/scene.xml"
 
+simulation:
+  timer_ceil: 60
+
 gui:
   geometry_top_left_x: 0
   geometry_top_left_y: 0
