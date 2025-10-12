@@ -20,7 +20,7 @@ class BasicSimulationRunner:
         self._running_event.clear()
         self._terminated = False
         self._fps = BasicFPS()
-        self._timer = MyTimer()
+        self._timer = MyTimer(CONFIG["simulation"]["timer_ceil"])
 
     @property
     def orchestrator(self):
@@ -103,11 +103,10 @@ class SimulationRunner(QObject, BasicSimulationRunner):
         LOGGER.debug("Simulation: Running")
         self._timer.start()
         self._timer.pause()
-        while not self.is_terminated() and self._running_event.wait():
+        while not self.is_terminated() and self._running_event.wait() and not self._timer.done():
             self._orchestrator.step_scene()  # advance scene
             self.status_ready.emit(self.status())  # emit status
             ENVIRONMENT.step()  # advance physics
             self._fps.maintain()
-            elapsed = self._timer.get()
 
         LOGGER.info("Simulation: Terminated")
