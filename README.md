@@ -62,7 +62,7 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 - `noises.py` - synthetic noise for sensors
 - `predictors.py` - simple predictor based on history
 - `detectors.py` – detects pad from streamer (ArUco marker detector)
-- `environment.py` – MuJoCo wrapper classes
+- `environment.py` – MuJoCo wrapper
 - `logger.py` - log class
 - `config.py` / `config.yaml` - config class loads configuration from yaml file
 - `globals.py` - global variables - config, logger, env.
