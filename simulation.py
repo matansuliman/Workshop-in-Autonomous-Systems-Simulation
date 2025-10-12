@@ -8,6 +8,7 @@ from plots import plot
 from environment import ENVIRONMENT
 from logger import LOGGER
 from fps import BasicFPS
+from timer import MyTimer
 
 
 class BasicSimulationRunner:
@@ -19,6 +20,7 @@ class BasicSimulationRunner:
         self._running_event.clear()
         self._terminated = False
         self._fps = BasicFPS()
+        self._timer = MyTimer()
 
     @property
     def orchestrator(self):
@@ -31,14 +33,18 @@ class BasicSimulationRunner:
         return self._terminated == True
 
     def pause(self):
+        self._timer.pause()
         self._running_event.clear()
         LOGGER.debug("Simulation: Pause")
 
     def resume(self):
+        self._timer.resume()
         self._running_event.set()
         LOGGER.debug("Simulation: Resume")
 
     def terminate(self):
+        if not self._timer.paused:
+            self._timer.pause()
         self._terminated = True
         LOGGER.debug("Simulation: Terminate")
 
@@ -95,10 +101,14 @@ class SimulationRunner(QObject, BasicSimulationRunner):
 
     def run(self):
         LOGGER.debug("Simulation: Running")
+        self._timer.start()
+        self._timer.pause()
         while not self.is_terminated() and self._running_event.wait():
             self._orchestrator.step_scene()  # advance scene
             self.status_ready.emit(self.status())  # emit status
             ENVIRONMENT.step()  # advance physics
             self._fps.maintain()
+            elapsed = self._timer.get()
+            LOGGER.debug(f"Simulation elapsed time: {elapsed}")
 
         LOGGER.info("Simulation: Terminated")
