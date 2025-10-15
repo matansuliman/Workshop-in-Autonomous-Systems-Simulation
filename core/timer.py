@@ -1,7 +1,7 @@
 # mytimer.py
 from datetime import datetime
 
-from globals import *
+from .globals import *
 
 class MyTimer:
     """
@@ -17,6 +17,10 @@ class MyTimer:
         self._time_paused = None
         self._paused = False
         self._ceil = ceil
+
+    @property
+    def paused(self):
+        return self._paused
 
     def start(self):
         """ Starts an internal timer by recording the current time """
@@ -52,4 +56,4 @@ class MyTimer:
             return datetime.now() - self._time_started
 
     def is_done(self):
-        return self._get().total_seconds() > self._ceil
+        return self.get().total_seconds() > self._ceil
