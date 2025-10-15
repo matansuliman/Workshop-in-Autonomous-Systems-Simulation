@@ -25,12 +25,13 @@ gui:
 
 logger:
   name: app
-  path: app.log
+  dir_name: outputs
+  ext: log
   fmt: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
   datefmt: "%Y-%m-%d %H:%M:%S"
 
 plotter:
-  dir_name: plots
+  dir_name: outputs
   ext: png
 
 
