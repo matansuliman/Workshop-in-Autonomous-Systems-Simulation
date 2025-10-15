@@ -1,8 +1,6 @@
-from sensors import GPS, IMU, Rangefinder, Touch
-
-from helpers import *
-
-from globals import *
+from .sensors import GPS, IMU, Rangefinder, Touch
+from .helpers import *
+from .globals import *
 
 
 class BasicModel:
