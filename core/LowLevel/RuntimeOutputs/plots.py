@@ -1,5 +1,4 @@
-import os
-import math
+import os, math
 import matplotlib.pyplot as plt
 
 from ...LowLevel.Utilities.globals import CONFIG, LOGGER
@@ -40,7 +39,7 @@ def plot(logs_dict, dir_name= CONFIG["plotter"]["dir_name"], ext=CONFIG["plotter
         plt.tight_layout()
 
         os.makedirs(dir_name, exist_ok=True)
-        filename = f"{dir_name}\\{name}-plot.{ext}"
+        filename = os.path.join(dir_name, f"{name}.{ext}")
         plt.savefig(filename)
         LOGGER.info(f"Plots: plotted logs to {filename}")
 

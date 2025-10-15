@@ -1,4 +1,4 @@
-import logging
+import os, logging
 
 
 def setup_logger(
@@ -14,7 +14,8 @@ def setup_logger(
     logger.setLevel(level)
 
     # Handlers
-    filename = f"{dir_name}\\{name}.{ext}"
+    os.makedirs(dir_name, exist_ok=True)
+    filename = os.path.join(dir_name, f"{name}.{ext}")
     file_handler = logging.FileHandler(filename, mode="w", delay=False)
     stream_handler = logging.StreamHandler()
 
