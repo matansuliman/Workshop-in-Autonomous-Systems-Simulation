@@ -1,8 +1,7 @@
 import numpy as np
 
-from helpers import *
-
-from globals import *
+from .helpers import *
+from .globals import *
 
 
 class BasicNoise:
