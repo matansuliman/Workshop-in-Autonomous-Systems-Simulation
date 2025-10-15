@@ -5,7 +5,6 @@ from PySide6.QtWidgets import QApplication
 from .simulation import SimulationRunner
 from .guis import GUI
 from .streamers import CameraStreamer
-
 from .globals import *
 
 
