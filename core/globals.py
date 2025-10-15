@@ -4,7 +4,8 @@ from .config import CONFIG
 
 LOGGER = setup_logger(
     name=CONFIG["logger"]["name"],
-    log_file=CONFIG["logger"]["path"],
+    dir_name = CONFIG["logger"]["dir_name"],
+    ext = CONFIG["logger"]["ext"],
     fmt=CONFIG["logger"]["fmt"],
     datefmt=CONFIG["logger"]["datefmt"]
 )
