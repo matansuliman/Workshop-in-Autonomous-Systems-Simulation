@@ -33,7 +33,7 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
      
 3. **Run**
    ```bash
-   python app.py
+   python -m core
    ```
 
 ---
