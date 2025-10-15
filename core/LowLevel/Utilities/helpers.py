@@ -1,6 +1,7 @@
 import numpy as np
 
-from .globals import *
+from .globals import CONFIG
+
 
 def sym_limits(x):
     return -x, x

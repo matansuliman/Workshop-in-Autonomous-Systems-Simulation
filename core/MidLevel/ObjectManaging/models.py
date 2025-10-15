@@ -1,7 +1,7 @@
 from ...MidLevel.ObjectManaging.sensors import GPS, IMU, Rangefinder, Touch
 
-from ...LowLevel.Utilities.helpers import *
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.helpers import print_for_gui
+from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 
 
 class BasicModel:

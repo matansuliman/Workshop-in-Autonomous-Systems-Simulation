@@ -1,12 +1,14 @@
 import threading
+import numpy as np
 from PySide6.QtCore import Signal, QObject
 
 from ...HighLevel.Orchestration.orchestrators import Follow
 
 from ...LowLevel.Timing.timer import MyTimer
 from ...LowLevel.Timing.fps import BasicFPS
-from ...LowLevel.Utilities.helpers import *
-from ...LowLevel.Utilities.globals import *
+
+from ...LowLevel.Utilities.helpers import print_for_gui
+from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 from ...LowLevel.RuntimeOutputs.plots import plot
 
 
@@ -107,5 +109,4 @@ class SimulationRunner(QObject, BasicSimulationRunner):
             self.status_ready.emit(self.status())  # emit status
             ENVIRONMENT.step()  # advance physics
             self._fps.maintain()
-
         LOGGER.info("Simulation: Terminated")

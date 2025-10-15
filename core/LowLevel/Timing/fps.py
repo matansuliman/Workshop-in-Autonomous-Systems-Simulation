@@ -1,8 +1,8 @@
 import time
 from loop_rate_limiters import RateLimiter, logging
 
-from ...LowLevel.Utilities.helpers import *
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.helpers import print_for_gui
+from ...LowLevel.Utilities.globals import ENVIRONMENT
 
 class BasicFPS:
     def __init__(self, frequency= (1 / ENVIRONMENT.dt)):

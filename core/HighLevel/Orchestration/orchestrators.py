@@ -5,7 +5,7 @@ from ...MidLevel.ObjectManaging.models import Quadrotor, Pad
 from ...MidLevel.ObjectManaging.controllers import QuadrotorController, PadController
 from ...MidLevel.PredictionAndDetection.predictors import ArUcoMarkerPredictor
 
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 
 
 class BasicOrchestrator:

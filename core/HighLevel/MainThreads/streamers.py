@@ -1,10 +1,11 @@
 import mujoco, glfw
 import cv2
+import numpy as np
 from PySide6.QtCore import Signal, QObject
 
 from ...LowLevel.Timing.fps import BasicFPS
-from ...LowLevel.Utilities.helpers import *
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.helpers import print_for_gui
+from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 
 
 class CameraStreamer(QObject):

@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 from collections import deque
 
-from ...LowLevel.Utilities.helpers import *
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.helpers import print_for_gui
+from ...LowLevel.Utilities.globals import CONFIG, LOGGER
 
 
 class BasicDetector:

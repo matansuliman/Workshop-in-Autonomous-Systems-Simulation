@@ -3,8 +3,8 @@ from collections import deque
 
 from ...MidLevel.PredictionAndDetection.detectors import ArUcoMarkerDetector
 
-from ...LowLevel.Utilities.helpers import *
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.helpers import print_for_gui
+from ...LowLevel.Utilities.globals import LOGGER
 
 
 class BasicPredictor:

@@ -6,7 +6,7 @@ from ...HighLevel.MainThreads.simulation import SimulationRunner
 from ...HighLevel.MainThreads.guis import GUI
 from ...HighLevel.MainThreads.streamers import CameraStreamer
 
-from ...LowLevel.Utilities.globals import *
+from ...LowLevel.Utilities.globals import LOGGER
 
 
 class App:
