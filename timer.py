@@ -14,47 +14,47 @@ class MyTimer:
 
     def __init__(self, ceil):
         #print('Initializing timer')
-        self.timestarted = None
-        self.timepaused = None
-        self.paused = False
-        self.ceil = ceil
+        self._time_started = None
+        self._time_paused = None
+        self._paused = False
+        self._ceil = ceil
 
     def start(self):
         """ Starts an internal timer by recording the current time """
         #print("Starting timer")
-        self.timestarted = datetime.now()
+        self._time_started = datetime.now()
 
     def pause(self):
         """ Pauses the timer """
-        if self.timestarted is None:
+        if self._time_started is None:
             raise ValueError("Timer not started")
-        if self.paused:
+        if self._paused:
             raise ValueError("Timer is already paused")
         #print('Pausing timer')
-        self.timepaused = datetime.now()
-        self.paused = True
+        self._time_paused = datetime.now()
+        self._paused = True
 
     def resume(self):
         """ Resumes the timer by adding the pause time to the start time """
-        if self.timestarted is None:
+        if self._time_started is None:
             raise ValueError("Timer not started")
-        if not self.paused:
+        if not self._paused:
             raise ValueError("Timer is not paused")
         #print('Resuming timer')
-        pausetime = datetime.now() - self.timepaused
-        self.timestarted = self.timestarted + pausetime
-        self.paused = False
+        pause_time = datetime.now() - self._time_paused
+        self._time_started = self._time_started + pause_time
+        self._paused = False
 
     def get(self):
         """ Returns a timedelta object showing the amount of time
             elapsed since the start time, less any pauses """
         #print('Get timer value')
-        if self.timestarted is None:
+        if self._time_started is None:
             raise ValueError("Timer not started")
-        if self.paused:
-            return self.timepaused - self.timestarted
+        if self._paused:
+            return self._time_paused - self._time_started
         else:
-            return datetime.now() - self.timestarted
+            return datetime.now() - self._time_started
 
     def is_done(self):
-        return self.get().total_seconds() > self.ceil
+        return self._get().total_seconds() > self._ceil
