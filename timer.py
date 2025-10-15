@@ -38,7 +38,7 @@ class MyTimer:
         if not self._paused:
             raise ValueError("Timer is not paused")
         pause_time = datetime.now() - self._time_paused
-        self._time_started = self._time_started + pause_time
+        self._time_started += pause_time
         self._paused = False
 
     def get(self):
