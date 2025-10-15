@@ -2,9 +2,8 @@ import cv2
 import numpy as np
 from collections import deque
 
-from helpers import *
-
-from globals import *
+from .helpers import *
+from .globals import *
 
 
 class BasicDetector:
