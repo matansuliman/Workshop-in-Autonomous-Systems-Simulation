@@ -1,5 +1,5 @@
-from environment import ENV
-from logger import setup_logger
+from .environment import ENV
+from .logger import setup_logger
 from config import CONFIG
 
 LOGGER = setup_logger(
