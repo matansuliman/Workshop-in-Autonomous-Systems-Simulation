@@ -1,9 +1,8 @@
 import numpy as np
 from simple_pid import PID
 
-from helpers import *
-
-from globals import *
+from .helpers import *
+from .globals import *
 
 
 class BasicController:
