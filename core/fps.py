@@ -1,9 +1,8 @@
 import time
 from loop_rate_limiters import RateLimiter, logging
 
-from helpers import *
-
-from globals import *
+from .helpers import *
+from .globals import *
 
 
 class BasicFPS:
