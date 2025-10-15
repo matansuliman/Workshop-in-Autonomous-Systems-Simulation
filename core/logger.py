@@ -3,7 +3,8 @@ import logging
 
 def setup_logger(
     name="logger-empty",
-    log_file="log_file.log",
+    dir_name='',
+    ext='log',
     fmt=None,
     datefmt=None,
     level=logging.DEBUG,
@@ -13,7 +14,8 @@ def setup_logger(
     logger.setLevel(level)
 
     # Handlers
-    file_handler = logging.FileHandler(log_file, mode="w", delay=False)
+    filename = f"{dir_name}\\{name}.{ext}"
+    file_handler = logging.FileHandler(filename, mode="w", delay=False)
     stream_handler = logging.StreamHandler()
 
     # Formatters
