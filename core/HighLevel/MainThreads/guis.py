@@ -58,7 +58,7 @@ class GUI(QWidget):
         self._pad_vel_y = self._create_slider(
             gui_pad_conf["low"],
             gui_pad_conf["high"],
-            self._simulation.get_pad_vel()[0],
+            self._simulation.get_pad_vel()[1],
             "Vy",
             on_change=self._set_pad_vel,
             step= gui_pad_conf["step"],
