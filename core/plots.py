@@ -1,9 +1,8 @@
+import os
 import math
 import matplotlib.pyplot as plt
 
-import os
-
-from globals import *
+from .globals import *
 
 
 def plot_safe(ax, x, y, *args, **kwargs):
