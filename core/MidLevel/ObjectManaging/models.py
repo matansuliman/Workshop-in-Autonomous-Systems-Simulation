@@ -59,7 +59,7 @@ class BasicModel:
     def update_log(self):
         t = ENVIRONMENT.data.time
         x_true, y_true, z_true = self.get_true_pos()
-        vx_true, vy_true, vz_true = self.get_vel()
+        vx_true, vy_true, vz_true = self.get_true_vel()
         x, y, z = self.get_pos()
         vx, vy, vz = self.get_vel()
 
