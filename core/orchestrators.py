@@ -1,11 +1,10 @@
 import mujoco
 import numpy as np
 
-from models import Quadrotor, Pad
-from controllers import QuadrotorController, PadController
-from predictors import ArUcoMarkerPredictor
-
-from globals import *
+from .models import Quadrotor, Pad
+from .controllers import QuadrotorController, PadController
+from .predictors import ArUcoMarkerPredictor
+from .globals import *
 
 
 class BasicOrchestrator:
