@@ -2,10 +2,11 @@ import sys
 import threading
 from PySide6.QtWidgets import QApplication
 
-from .simulation import SimulationRunner
-from .guis import GUI
-from .streamers import CameraStreamer
-from .globals import *
+from ...HighLevel.MainThreads.simulation import SimulationRunner
+from ...HighLevel.MainThreads.guis import GUI
+from ...HighLevel.MainThreads.streamers import CameraStreamer
+
+from ...LowLevel.Utilities.globals import *
 
 
 class App:

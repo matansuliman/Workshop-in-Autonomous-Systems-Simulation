@@ -1,6 +1,6 @@
-from .environment import ENV
-from .logger import setup_logger
-from .config import CONFIG
+from ...LowLevel.SimulationDecoupling.environment import ENV
+from ...LowLevel.RuntimeOutputs.logger import setup_logger
+from ...LowLevel.Utilities.config import CONFIG
 
 LOGGER = setup_logger(
     name=CONFIG["logger"]["name"],

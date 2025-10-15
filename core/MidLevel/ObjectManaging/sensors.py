@@ -1,8 +1,9 @@
 from scipy.spatial.transform import Rotation
 
-from .noises import PosNoise, VelNoise, GyroNoise, QuatNoise, RangefinderNoise,AccelerometerNoise
-from .helpers import *
-from .globals import *
+from ...MidLevel.ObjectManaging.noises import PosNoise, VelNoise, GyroNoise, QuatNoise, RangefinderNoise,AccelerometerNoise
+
+from ...LowLevel.Utilities.helpers import *
+from ...LowLevel.Utilities.globals import *
 
 
 class MujocoSensor:

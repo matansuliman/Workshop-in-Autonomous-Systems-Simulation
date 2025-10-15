@@ -1,4 +1,4 @@
-path_to_xml: "core/skydio_x2/scene.xml"
+path_to_xml: "core/LowLevel/Assets/skydio_x2/scene.xml"
 
 simulation:
   timer_ceil: 60

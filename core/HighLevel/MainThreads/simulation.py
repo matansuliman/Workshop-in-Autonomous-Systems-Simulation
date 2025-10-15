@@ -1,13 +1,13 @@
 import threading
-
 from PySide6.QtCore import Signal, QObject
 
-from .orchestrators import Follow
-from .timer import MyTimer
-from .fps import BasicFPS
-from .helpers import *
-from .plots import plot
-from .globals import *
+from ...HighLevel.Orchestration.orchestrators import Follow
+
+from ...LowLevel.Timing.timer import MyTimer
+from ...LowLevel.Timing.fps import BasicFPS
+from ...LowLevel.Utilities.helpers import *
+from ...LowLevel.Utilities.globals import *
+from ...LowLevel.RuntimeOutputs.plots import plot
 
 
 class BasicSimulationRunner:

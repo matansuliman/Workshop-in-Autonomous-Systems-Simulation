@@ -2,7 +2,7 @@ import os
 import math
 import matplotlib.pyplot as plt
 
-from .globals import *
+from ...LowLevel.Utilities.globals import *
 
 
 def plot_safe(ax, x, y, *args, **kwargs):

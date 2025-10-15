@@ -2,9 +2,9 @@ import mujoco, glfw
 import cv2
 from PySide6.QtCore import Signal, QObject
 
-from .fps import BasicFPS
-from .helpers import *
-from .globals import *
+from ...LowLevel.Timing.fps import BasicFPS
+from ...LowLevel.Utilities.helpers import *
+from ...LowLevel.Utilities.globals import *
 
 
 class CameraStreamer(QObject):

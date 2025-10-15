@@ -1,9 +1,10 @@
 import numpy as np
 from collections import deque
 
-from .detectors import ArUcoMarkerDetector
-from .helpers import *
-from .globals import *
+from ...MidLevel.PredictionAndDetection.detectors import ArUcoMarkerDetector
+
+from ...LowLevel.Utilities.helpers import *
+from ...LowLevel.Utilities.globals import *
 
 
 class BasicPredictor:

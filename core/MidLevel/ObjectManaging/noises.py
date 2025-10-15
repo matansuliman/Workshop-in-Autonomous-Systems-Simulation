@@ -1,7 +1,7 @@
 import numpy as np
 
-from .helpers import *
-from .globals import *
+from ...LowLevel.Utilities.helpers import *
+from ...LowLevel.Utilities.globals import *
 
 
 class BasicNoise:
