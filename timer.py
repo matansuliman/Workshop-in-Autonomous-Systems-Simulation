@@ -5,11 +5,11 @@ from globals import *
 
 class MyTimer:
     """
-    timer.start() - should start the timer
-    timer.pause() - should pause the timer
-    timer.resume() - should resume the timer
-    timer.get() - should return the current time
-    timer.is_done() - return True if the timer is done
+    timer.start() - should start the timer.
+    timer.pause() - should pause the timer.
+    timer.resume() - should resume the timer.
+    timer.get() - should return the current time.
+    timer.is_done() - return True if the timer is done.
     """
 
     def __init__(self, ceil):
