@@ -46,36 +46,51 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 
 ---
 
-## Repo Map (key files)
+## Repo Map
 
-- `app.py` – bootstraps threads: GUI, SimulationRunner and CameraStreamer
-- `simulation.py` – main loop, pause/resume/terminate
-- `gui.py` - graphical user interface
-- `streamers.py` – offscreen render to detector(through simulation) and GUI
-- `timer.py` - pausable timer class for timeout simulation
-- `fps.py` - maintaining frequency of loops
-- `orchestrators.py` – scene logic (**Follow orchestrator**)
-- `models.py` – `Quadrotor`, `Pad` physical object with sensors & logging
-- `controllers.py` – non-physical, controlling the physical objects
-  (**QuadrotorController** - PID control & descend phases)
-- `sensors.py` - basic MuJoCo sensor and advanced sensors
-- `noises.py` - synthetic noise for sensors
-- `predictors.py` - simple predictor based on history
-- `detectors.py` – detects pad from streamer (ArUco marker detector)
-- `environment.py` – MuJoCo wrapper
-- `logger.py` - log class
-- `config.py` / `config.yaml` - config class loads configuration from yaml file
-- `globals.py` - global variables - config, logger, env.
-- `helpers.py` - global helper functions
-- `/skydio_x2` - MuJoCo xml files (world and objects), assets
-- `plots.py` - plotting logs on png images, called on exit
+### Entry Point
+- **`app.py`** – Bootstraps the app: initializes `QApplication`, `SimulationRunner`, `CameraStreamer`, and `GUI`. Connects signals and starts background threads.
 
----
+### Core Simulation
+- **`simulation.py`** – Main simulation loop. Handles pause/resume/terminate, state updates, and interactions with physical objects.
+- **`environment.py`** – MuJoCo wrapper: loads XML scenes, steps simulation, currently coupled to MuJoCo api.
+- **`models.py`** – Physical objects: `Quadrotor`, `Pad` with sensors and loggings.
 
-## More Info
+### Control & Orchestration
+- **`controllers.py`** – Non-physical controllers; `QuadrotorController` implements PID control, alignment, and phased descent.
+- **`orchestrators.py`** – Scene logic orchestrators (e.g., **Follow**).
 
-- **Presentation.pdf**
-- **ClassDiagram.pdf**
+### Sensing & Detection
+- **`sensors.py`** – Basic MuJoCo sensors and advanced sensor abstractions.
+- **`detectors.py`** – ArUco marker detection from camera stream.
+- **`predictors.py`** – Simple motion predictor using past positions.
+- **`noises.py`** – Synthetic sensor noise for realism.
+
+### Streaming & GUI
+- **`streamers.py`** – Offscreen renderer: streams images to GUI and detector pipeline.
+- **`gui.py`** – PySide6 GUI: status readouts, live camera preview, control buttons ans sliders.
+
+### Utilities
+- **`fps.py`** – Maintains loop frequency.
+- **`timer.py`** – Pausable timer utility.
+- **`logger.py`** – Logging class, used across simulation and controllers.
+- **`helpers.py`** – Miscellaneous global helper functions.
+
+### Configuration
+- **`config.py`** – Loads settings from `config.yaml`.
+- **`config.yaml`** – YAML configuration: scene paths, camera settings, plotting, frequency, etc.
+- **`globals.py`** – Global variables: config, logger, environment reference.
+
+### Output & Plots
+- **`plots.py`** – Generates plots (PNG) from simulation logs upon exit.
+
+### Assets & Scenes
+- **`/skydio_x2`** – MuJoCo XML files (world and objects), textures, and other assets.
+
+### Documentation
+- **`Presentation.pdf`** – Overview of the project.
+- **`ClassDiagram.pdf`** – UML class diagrams for reference.
+- **`self_evaluation.txt`** – Making this project great.
 
 ---
 
