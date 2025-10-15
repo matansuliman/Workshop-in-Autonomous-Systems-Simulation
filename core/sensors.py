@@ -1,9 +1,8 @@
-import noises
-from helpers import *
-
 from scipy.spatial.transform import Rotation
 
-from globals import *
+from .noises import PosNoise, VelNoise, GyroNoise, QuatNoise, RangefinderNoise,AccelerometerNoise
+from .helpers import *
+from .globals import *
 
 
 class MujocoSensor:
@@ -32,8 +31,8 @@ class GPS:
     def __init__(self, pos_sensor_name, vel_sensor_name):
         self._pos_sensor = MujocoSensor(sensor_name=pos_sensor_name)
         self._vel_sensor = MujocoSensor(sensor_name=vel_sensor_name)
-        self._pos_noise = noises.PosNoise()
-        self._vel_noise = noises.VelNoise()
+        self._pos_noise = PosNoise()
+        self._vel_noise = VelNoise()
 
     def get(self):
         return self.get_pos(), self.get_vel()
@@ -64,9 +63,9 @@ class IMU:
         self._gyro_sensor = MujocoSensor(sensor_name=gyro_sensor_name)
         self._accelerometer_sensor = MujocoSensor(sensor_name=accelerometer_sensor_name)
 
-        self._orientation_noise = noises.QuatNoise()
-        self._gyro_noise = noises.GyroNoise()
-        self._accelerometer_noise = noises.AccelerometerNoise()
+        self._orientation_noise = QuatNoise()
+        self._gyro_noise = GyroNoise()
+        self._accelerometer_noise = AccelerometerNoise()
 
     def get(self):
         return self.get_quat_wxyz(), self.get_gyro(), self.get_accelerometer()
@@ -104,7 +103,7 @@ class IMU:
 class Rangefinder:
     def __init__(self, range_sensor_name):
         self._range_sensor = MujocoSensor(sensor_name=range_sensor_name)
-        self._range_noise = noises.RangefinderNoise()
+        self._range_noise = RangefinderNoise()
 
     def get(self):
         range_val = self._range_sensor.get()[0]
