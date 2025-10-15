@@ -1,3 +1,3 @@
 # simulation/__init__.py
 # empty file
-from app import App
+from .app import App
