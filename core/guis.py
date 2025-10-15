@@ -3,9 +3,8 @@ from PySide6 import QtWidgets, QtCore
 from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtWidgets import QApplication, QWidget
 
-from helpers import *
-
-from globals import *
+from .helpers import *
+from .globals import *
 
 
 class GUI(QWidget):
