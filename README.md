@@ -17,7 +17,7 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 2. **Configure** (edit `config.yaml`)
    - Set the MuJoCo scene path (example below uses the repo root):
      ```yaml
-     path_to_xml: "skydio_x2/scene.xml"
+     path_to_xml: "core/LowLevel/Assets/skydio_x2/scene.xml"
      ```
    - (Optional) Tweak plotting and camera:
      ```yaml
