@@ -80,6 +80,7 @@ class SimulationRunner(QObject, BasicSimulationRunner):
     def status(self):
         status = f"{self.__class__.__name__} status:"
         status += str(self._fps)
+        status += str(self._timer)
         status += self._orchestrator.status()
         if self._orchestrator.scene_ended():
             status += "\nScene ended:"
