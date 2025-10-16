@@ -214,5 +214,18 @@ class ENV:
 
     # -------------------- Camera --------------------
 
-    def render_camera(self, camera_name: str, resolution: tuple[int, int]) -> np.ndarray:
-        return self._backend.render_camera(camera_name, resolution)
+    # ---- Camera Wrappers ----
+    def init_camera(self, camera_name: str, resolution: tuple[int, int]):
+        self._backend.init_camera(camera_name, resolution)
+
+    def render_camera(self, camera_name: str) -> np.ndarray:
+        return self._backend.render_camera(camera_name)
+
+    def render_all_cameras(self) -> dict[str, np.ndarray]:
+        return self._backend.render_all_cameras()
+
+    def close_camera(self, camera_name: str):
+        self._backend.close_camera(camera_name)
+
+    def close_all_cameras(self):
+        self._backend.close_all_cameras()
