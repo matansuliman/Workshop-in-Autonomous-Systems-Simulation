@@ -39,13 +39,6 @@ class ENV:
         return self._backend.launch_viewer()
 
     # -------------------- Core properties --------------------
-    @property
-    def model(self) -> mujoco.MjModel:
-        return self._backend.model
-
-    @property
-    def data(self) -> mujoco.MjData:
-        return self._backend.data
 
     @property
     def dt(self) -> float:
@@ -212,3 +205,14 @@ class ENV:
 
     def world_pos_of_body(self, body: Union[str, int]) -> np.ndarray:
         return self._backend.get_body_pos(body)
+
+
+    # -------------------- Sensors --------------------
+    def get_sensor_data(self, sensor_name: str) -> np.ndarray:
+        return self._backend.get_sensor_data(sensor_name)
+
+
+    # -------------------- Camera --------------------
+
+    def render_camera(self, camera_name: str, resolution: tuple[int, int]) -> np.ndarray:
+        return self._backend.render_camera(camera_name, resolution)
