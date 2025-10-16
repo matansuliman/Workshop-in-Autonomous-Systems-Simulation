@@ -13,6 +13,7 @@ class MujocoBackend(PhysicsBackend):
     def __init__(self, xml_path: str):
         self._model = mujoco.MjModel.from_xml_path(xml_path)
         self._data = mujoco.MjData(self._model)
+        self._cameras = {}
 
     # --- core properties ----
     @property
@@ -240,39 +241,88 @@ class MujocoBackend(PhysicsBackend):
         adr, dim = self.get_sensor_metadata(sensor_name)
         return self._data.sensordata[adr: adr + dim].copy()
 
-    # ---- Camera ----
-    def render_camera(self, camera_name: str, resolution: tuple[int, int]) -> np.ndarray:
+    # ---- Multi-Camera Management ----
+    def init_camera(self, camera_name: str, resolution: tuple[int, int]) -> None:
+        """Initialize and store an offscreen MuJoCo camera."""
         import glfw
 
-        # Initialize offscreen context once per backend instance
         if not glfw.init():
             raise RuntimeError("GLFW initialization failed")
 
-        width, height = resolution
+        w, h = resolution
         glfw.window_hint(glfw.VISIBLE, glfw.FALSE)
-        window = glfw.create_window(width, height, "", None, None)
+        window = glfw.create_window(w, h, "", None, None)
         glfw.make_context_current(window)
 
-        # Create camera and scene
         camera = mujoco.MjvCamera()
         option = mujoco.MjvOption()
         scene = mujoco.MjvScene(self._model, maxgeom=1000)
         context = mujoco.MjrContext(self._model, mujoco.mjtFontScale.mjFONTSCALE_150)
 
-        cam_id = mujoco.mj_name2id(self._model, mujoco.mjtObj.mjOBJ_CAMERA, camera_name)
         camera.type = mujoco.mjtCamera.mjCAMERA_FIXED
-        camera.fixedcamid = cam_id
+        camera.fixedcamid = mujoco.mj_name2id(self._model, mujoco.mjtObj.mjOBJ_CAMERA, camera_name)
 
-        # Update and render
-        mujoco.mjv_updateScene(self._model, self._data, option, None, camera, mujoco.mjtCatBit.mjCAT_ALL, scene)
-        mujoco.mjr_render(mujoco.MjrRect(0, 0, width, height), scene, context)
+        if not hasattr(self, "_cameras"):
+            self._cameras = {}
 
-        rgb = np.zeros((height, width, 3), dtype=np.uint8)
-        mujoco.mjr_readPixels(rgb, None, mujoco.MjrRect(0, 0, width, height), context)
-        rgb = np.flip(rgb, axis=0)
+        self._cameras[camera_name] = {
+            "window": window,
+            "camera": camera,
+            "option": option,
+            "scene": scene,
+            "context": context,
+            "resolution": (w, h),
+        }
 
-        glfw.destroy_window(window)
-        return rgb
+    def render_camera(self, camera_name: str) -> np.ndarray:
+        """Render one frame from a specific camera."""
+        cam = self._cameras.get(camera_name)
+        if cam is None:
+            raise ValueError(f"Camera '{camera_name}' not initialized")
+
+        w, h = cam["resolution"]
+        mujoco.mjv_updateScene(
+            self._model,
+            self._data,
+            cam["option"],
+            None,
+            cam["camera"],
+            mujoco.mjtCatBit.mjCAT_ALL,
+            cam["scene"],
+        )
+        mujoco.mjr_render(mujoco.MjrRect(0, 0, w, h), cam["scene"], cam["context"])
+
+        rgb = np.zeros((h, w, 3), dtype=np.uint8)
+        mujoco.mjr_readPixels(rgb, None, mujoco.MjrRect(0, 0, w, h), cam["context"])
+        return np.flip(rgb, axis=0)
+
+    def render_all_cameras(self) -> dict[str, np.ndarray]:
+        """Render all initialized cameras and return dict of images."""
+        return {name: self.render_camera(name) for name in self._cameras.keys()}
+
+    def close_camera(self, camera_name: str) -> None:
+        """Close and remove a single camera."""
+        import glfw
+
+        cam = self._cameras.pop(camera_name, None)
+        if not cam:
+            return
+
+        glfw.destroy_window(cam["window"])
+        if not self._cameras:
+            glfw.terminate()
+
+    def close_all_cameras(self) -> None:
+        """Close all camera contexts."""
+        import glfw
+
+        if not hasattr(self, "_cameras"):
+            return
+
+        for cam in self._cameras.values():
+            glfw.destroy_window(cam["window"])
+        self._cameras.clear()
+        glfw.terminate()
 
 
 
