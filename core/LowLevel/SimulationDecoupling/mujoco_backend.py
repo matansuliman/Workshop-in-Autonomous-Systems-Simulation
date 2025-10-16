@@ -114,6 +114,11 @@ class MujocoBackend(PhysicsBackend):
             return int(sensor)
         return self._model.sensor(sensor).id
 
+    def sensor_name(self, sensor: str | int) -> str:
+        if isinstance(sensor, int):
+            return str(sensor)
+        return self._model.sensor(sensor).name
+
     # ---- Body state access ----
     def get_body_pos(self, body: str | int) -> np.ndarray:
         """World-frame COM position."""
