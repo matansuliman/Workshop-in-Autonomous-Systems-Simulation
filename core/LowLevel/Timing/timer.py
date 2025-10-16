@@ -56,3 +56,11 @@ class MyTimer:
 
     def is_done(self):
         return self.get().total_seconds() > self._ceil
+
+    def __str__(self):
+        res = ""
+        res += f"\t\ttime started: {print_for_gui(self._time_started)}"
+        res += f"\t\ttime paused: {print_for_gui(self._time_paused)}"
+        res += f"\t\tpaused: {print_for_gui(self._paused)}"
+        res += f"\t\tceil: {print_for_gui(self._ceil)}\n"
+        return res
