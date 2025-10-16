@@ -10,6 +10,17 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 ## Quick Start
 
 1. **Create venv (recommended) & install deps**
+    
+    Create a virtual environment
+    ```bash
+    python -m venv .venv
+    ```
+   Activate the virtual environment
+    ```bash
+    .venv\Scripts\Activate # Windows (PowerShell)
+    source .venv/bin/activate # macOS / Linux (bash or zsh)
+    ```
+    install dependencies
    ```bash
    pip install -r requirements.txt
    ```
