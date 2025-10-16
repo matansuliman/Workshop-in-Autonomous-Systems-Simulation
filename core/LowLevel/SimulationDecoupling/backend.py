@@ -99,3 +99,20 @@ class PhysicsBackend(ABC):
         Implementations should safely terminate the rendering backend.
         """
         ...
+
+    # ---- Viewer Interface ----
+    @abstractmethod
+    def launch_viewer(self, show_contacts: bool = False):
+        """
+        Launch a passive simulation viewer.
+        Args:
+            show_contacts (bool): Whether to visualize contact points or forces.
+        Returns:
+            Backend-specific viewer handle (opaque to higher layers).
+        """
+        ...
+
+    @abstractmethod
+    def close_viewer(self):
+        """Close the viewer if open."""
+        ...
