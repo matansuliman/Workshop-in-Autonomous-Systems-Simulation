@@ -5,7 +5,8 @@ class ConfigProfile:
         with open(filename, "r") as f:
             self._profile = yaml.safe_load(f)
 
-    def get_profile(self):
+    @property
+    def profile(self):
         return self._profile
 
 
