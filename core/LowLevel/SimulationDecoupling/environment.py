@@ -77,7 +77,7 @@ class ENV:
             if self._wind.enabled:
                 self._apply_wind_drag()
 
-            mujoco.mj_step(self._model, self._data)
+            self._backend.step_once()
 
     # -------------------- Wind / aerodynamic drag --------------------
     def enable_wind(self, enabled: bool = True):
