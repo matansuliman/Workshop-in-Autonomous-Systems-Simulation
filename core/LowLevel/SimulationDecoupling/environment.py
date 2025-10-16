@@ -145,33 +145,13 @@ class ENV:
             # torque left zero
 
     # -------------------- External forces helpers --------------------
-    def add_external_force(
-        self,
-        body: Union[str, int],
-        force_world: Union[Iterable[float], np.ndarray],
-        torque_world: Union[Iterable[float], np.ndarray] = (0.0, 0.0, 0.0),
-        mode: str = "add",
-    ):
-        """
-        Apply an external spatial force (world frame) on a body COM for the current step.
-        If mode == 'set' it overwrites; if 'add' it accumulates.
-        """
-        bid = self.body_id(body)
-        f = np.asarray(force_world, dtype=float).reshape(3)
-        t = np.asarray(torque_world, dtype=float).reshape(3)
-
-        if mode == "set":
-            self._data.xfrc_applied[bid, :3] = f
-            self._data.xfrc_applied[bid, 3:] = t
-        elif mode == "add":
-            self._data.xfrc_applied[bid, :3] += f
-            self._data.xfrc_applied[bid, 3:] += t
-        else:
-            raise ValueError("mode must be 'set' or 'add'")
+    def apply_force(self, body: str | int, force_world: Iterable[float], torque_world: Optional[Iterable[float]] = None,
+                    *, mode: str = "add", ) -> None:
+        self._backend.apply_force(body, force_world, torque_world, mode=mode)
 
     def clear_external_forces(self):
         """Zero out all xfrc_applied for this step (safe to call every step)."""
-        self._data.xfrc_applied[:, :] = 0.0
+        self._backend.clear_external_forces()
 
     # -------------------- World/options setters --------------------
     def set_gravity(self, g_world: Union[Iterable[float], np.ndarray]):
