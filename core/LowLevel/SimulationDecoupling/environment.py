@@ -150,17 +150,16 @@ class ENV:
 
     # -------------------- World/options setters --------------------
     def set_gravity(self, g_world: Union[Iterable[float], np.ndarray]):
-        self._model.opt.gravity[:] = np.asarray(g_world, dtype=float).reshape(3)
+        self._backend.set_gravity(g_world)
 
     def set_air_density(self, rho: float):
-        self._model.opt.density = float(rho)
+        self._backend.set_air_density(rho)
 
     def set_viscosity(self, mu: float):
-        self._model.opt.viscosity = float(mu)
+        self._backend.set_viscosity(mu)
 
     def set_timestep(self, dt: float):
-        self._model.opt.timestep = float(dt)
-        self._dt = float(dt)
+        self._backend.set_timestep(dt)
 
     # -------------------- Reset helpers --------------------
     def reset(
@@ -362,7 +361,7 @@ class ENV:
         g = self._model.opt.gravity.copy()
         mag = np.linalg.norm(g)
         if mag > 0:
-            self._model.opt.gravity[:] = g * scale
+            self._backend.set_gravity(g * scale)
 
     # -------------------- Debug helpers --------------------
     def world_linvel_of_body(self, body: Union[str, int]) -> np.ndarray:
