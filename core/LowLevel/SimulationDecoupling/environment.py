@@ -7,6 +7,8 @@ import mujoco.viewer
 import glfw
 import numpy as np
 
+from ...LowLevel.SimulationDecoupling.mujoco_backend import MujocoBackend
+
 
 @dataclass
 class WindConfig:
