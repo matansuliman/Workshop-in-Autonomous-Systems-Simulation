@@ -161,57 +161,24 @@ class ENV:
         """mj_resetData + optional state overwrite."""
         self._backend.reset(qpos, qvel)
 
-    # -------------------- Body / joint utilities --------------------
+    # -------------------- Body / joint identifiers --------------------
     def body_id(self, body: Union[str, int]) -> int:
-        if isinstance(body, int):
-            return int(body)
-        if body in self._body_id_cache:
-            return self._body_id_cache[body]
-        bid = self._model.body(body).id
-        self._body_id_cache[body] = bid
-        return bid
+        return self._backend.body_id(body)
 
     def body_name(self, body: Union[str, int]) -> str:
-        if isinstance(body, str):
-            return body
-        return self._model.body(body).name
+        return self._backend.body_name(body)
 
     def joint_id(self, joint: Union[str, int]) -> int:
-        if isinstance(joint, int):
-            return int(joint)
-        if joint in self._joint_id_cache:
-            return self._joint_id_cache[joint]
-        jid = self._model.joint(joint).id
-        self._joint_id_cache[joint] = jid
-        return jid
+        return self._backend.joint_id(joint)
 
     def actuator_id(self, actuator: Union[str, int]) -> int:
-        if isinstance(actuator, int):
-            return int(actuator)
-        if actuator in self._act_id_cache:
-            return self._act_id_cache[actuator]
-        aid = self._model.actuator(actuator).id
-        self._act_id_cache[actuator] = aid
-        return aid
+        return self._backend.actuator_id(actuator)
 
     def sensor_id(self, sensor: Union[str, int]) -> int:
-        """
-        Get a sensor id from name or pass-through if already an int.
-        Caches lookups by name for speed.
-        """
-        if isinstance(sensor, int):
-            return int(sensor)
-        if sensor in self._sensor_id_cache:
-            return self._sensor_id_cache[sensor]
-        sid = self._model.sensor(sensor).id
-        self._sensor_id_cache[sensor] = sid
-        return sid
+        return self._backend.sensor_id(sensor)
 
     def sensor_name(self, sensor: Union[str, int]) -> str:
-        """Return sensor name given id or pass-through if already a name."""
-        if isinstance(sensor, str):
-            return sensor
-        return self._model.sensor(sensor).name
+        return self._backend.sensor_name(sensor)
 
     # ---- Poses for free bodies and joints ----
     def set_free_body_pose(
