@@ -156,6 +156,8 @@ class MujocoBackend(PhysicsBackend):
         glfw.init()
         return mujoco.viewer.launch_passive(self._model, self._data)
 
+
+    # ---- Setters ----
     def set_free_body_pose(self, body: str | int,
                            pos_world: Optional[Iterable[float]] = None, quat_wxyz: Optional[Iterable[float]] = None):
         bid = self.body_id(body)
@@ -187,3 +189,50 @@ class MujocoBackend(PhysicsBackend):
             self._data.qvel[vadr:vadr + 3] = np.asarray(angvel_world, dtype=float).reshape(3)
         if linvel_world is not None:
             self._data.qvel[vadr + 3:vadr + 6] = np.asarray(linvel_world, dtype=float).reshape(3)
+
+
+    # ---- Getters ----
+    def actuators_for_body(self, body: int | str):
+        """
+        Return actuator ids and names that act on the given body.
+        Works for JOINT-driven and SITE-driven actuators.
+        """
+        if isinstance(body, str):
+            body_id = self.body_id(body)
+        else:
+            body_id = int(body)
+
+        mdl = self._model
+        ids, names = [], []
+
+        for aid in range(mdl.nu):
+            trntype = int(mdl.actuator_trntype[aid])
+            idx0 = int(mdl.actuator_trnid[aid, 0])
+
+            # JOINT-driven
+            if trntype == mujoco.mjtTrn.mjTRN_JOINT:
+                if 0 <= idx0 < mdl.njnt and mdl.jnt_bodyid[idx0] == body_id:
+                    ids.append(aid)
+                    names.append(mdl.actuator(aid).name)
+                continue
+
+            # SITE-driven (e.g. quadrotor motors)
+            if trntype == mujoco.mjtTrn.mjTRN_SITE:
+                if 0 <= idx0 < mdl.nsite and mdl.site_bodyid[idx0] == body_id:
+                    ids.append(aid)
+                    names.append(mdl.actuator(aid).name)
+                continue
+
+        return ids, names
+
+    def get_gravity(self):
+        return self._model.opt.gravity.copy()
+
+
+
+
+
+
+
+
+
