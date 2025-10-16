@@ -7,7 +7,7 @@ from ...LowLevel.Utilities.helpers import print_for_gui
 from ...LowLevel.Utilities.globals import ENVIRONMENT
 
 
-class MujocoSensor:
+class BasicSensor:
     def __init__(self, sensor_name):
         self._sensor_name = sensor_name
 
@@ -26,8 +26,8 @@ class MujocoSensor:
 
 class GPS:
     def __init__(self, pos_sensor_name, vel_sensor_name):
-        self._pos_sensor = MujocoSensor(sensor_name=pos_sensor_name)
-        self._vel_sensor = MujocoSensor(sensor_name=vel_sensor_name)
+        self._pos_sensor = BasicSensor(sensor_name=pos_sensor_name)
+        self._vel_sensor = BasicSensor(sensor_name=vel_sensor_name)
         self._pos_noise = PosNoise()
         self._vel_noise = VelNoise()
 
@@ -56,9 +56,9 @@ class IMU:
     def __init__(
         self, framequat_sensor_name, gyro_sensor_name, accelerometer_sensor_name
     ):
-        self._quat_sensor = MujocoSensor(sensor_name=framequat_sensor_name)
-        self._gyro_sensor = MujocoSensor(sensor_name=gyro_sensor_name)
-        self._accelerometer_sensor = MujocoSensor(sensor_name=accelerometer_sensor_name)
+        self._quat_sensor = BasicSensor(sensor_name=framequat_sensor_name)
+        self._gyro_sensor = BasicSensor(sensor_name=gyro_sensor_name)
+        self._accelerometer_sensor = BasicSensor(sensor_name=accelerometer_sensor_name)
 
         self._orientation_noise = QuatNoise()
         self._gyro_noise = GyroNoise()
@@ -99,7 +99,7 @@ class IMU:
 
 class Rangefinder:
     def __init__(self, range_sensor_name):
-        self._range_sensor = MujocoSensor(sensor_name=range_sensor_name)
+        self._range_sensor = BasicSensor(sensor_name=range_sensor_name)
         self._range_noise = RangefinderNoise()
 
     def get(self):
@@ -116,7 +116,7 @@ class Rangefinder:
 
 class Touch:
     def __init__(self, touch_sensor_name: str):
-        self._sensor = MujocoSensor(sensor_name=touch_sensor_name)
+        self._sensor = BasicSensor(sensor_name=touch_sensor_name)
 
     def get(self):
         vals = self._sensor.get()
