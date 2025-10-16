@@ -23,3 +23,6 @@ Self Evaluation: This project is far from perfect and here is a guideline how to
         - class Log: time as x-axis and multiple y-axis, can plot itself
         - class Drone: easier to swap models or run multiple instances
         - class ConfigProfile: have multiple yaml files
+
+    - Restructure
+        done - build as a package
