@@ -35,8 +35,12 @@ class ENV:
         self._act_id_cache: Dict[str, int] = {}
         self._sensor_id_cache: Dict[str, int] = {}
 
-    def launch_viewer(self):
-        return self._backend.launch_viewer()
+    # -------------------- Viewer --------------------
+    def launch_viewer(self, show_contacts: bool = False):
+        return self._backend.launch_viewer(show_contacts=show_contacts)
+
+    def close_viewer(self):
+        self._backend.close_viewer()
 
     # -------------------- Core properties --------------------
 
@@ -213,8 +217,6 @@ class ENV:
 
 
     # -------------------- Camera --------------------
-
-    # ---- Camera Wrappers ----
     def init_camera(self, camera_name: str, resolution: tuple[int, int]):
         self._backend.init_camera(camera_name, resolution)
 
