@@ -44,8 +44,7 @@ class ENV:
         self._sensor_id_cache: Dict[str, int] = {}
 
     def launch_viewer(self):
-        glfw.init()
-        return mujoco.viewer.launch_passive(self._model, self._data)
+        return self._backend.launch_viewer()
 
     # -------------------- Core properties --------------------
     @property
