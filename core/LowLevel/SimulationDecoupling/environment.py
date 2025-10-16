@@ -190,15 +190,10 @@ class ENV:
         self._backend.set_free_body_velocity(body, linvel_world, angvel_world)
 
     def set_joint_qpos(self, joint: Union[str, int], value: float):
-        jid = self.joint_id(joint)
-        adr = self._model.jnt_qposadr[jid]
-        # Hinge, slide -> scalar
-        self._data.qpos[adr] = float(value)
+        self._backend.set_joint_qpos(joint, value)
 
     def set_joint_qvel(self, joint: Union[str, int], value: float):
-        jid = self.joint_id(joint)
-        adr = self._model.jnt_dofadr[jid]
-        self._data.qvel[adr] = float(value)
+        self._backend.set_joint_qvel(joint, value)
 
     # -------------------- Actuators / controls --------------------
     def set_ctrl(self, actuator: Union[str, int], value: float):
