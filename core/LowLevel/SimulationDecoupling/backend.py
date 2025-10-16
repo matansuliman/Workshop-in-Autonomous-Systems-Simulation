@@ -47,3 +47,18 @@ class PhysicsBackend(ABC):
 
     @abstractmethod
     def set_timestep(self, dt: float) -> None: ...
+
+    @abstractmethod
+    def get_sensor_metadata(self, sensor_name: str) -> tuple[int, int]:
+        """Return (adr, dim) for a given sensor."""
+        ...
+
+    @abstractmethod
+    def get_sensor_data(self, sensor_name: str) -> np.ndarray:
+        """Return sensor data slice given its address and dimension."""
+        ...
+
+    @abstractmethod
+    def render_camera(self, camera_name: str, resolution: tuple[int, int]) -> np.ndarray:
+        """Render an RGB image from the specified camera."""
+        ...
