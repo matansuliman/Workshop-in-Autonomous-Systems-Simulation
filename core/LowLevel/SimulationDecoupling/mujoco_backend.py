@@ -318,13 +318,23 @@ class MujocoBackend(PhysicsBackend):
         """Close and remove a single camera."""
         import glfw
 
-        cam = self._cameras.pop(camera_name, None)
-        if not cam:
+        cams = getattr(self, "_cameras", None)
+        if not cams:
+            return
+
+        cam = cams.pop(camera_name, None)
+        if cam is None:
             return
 
         glfw.destroy_window(cam["window"])
-        if not self._cameras:
-            glfw.terminate()
+
+        # terminate GLFW only when no cameras remain and GLFW is initialized
+        if not cams and glfw.get_current_context() is None:
+            # No current context left; OK to terminate
+            try:
+                glfw.terminate()
+            except Exception:
+                pass
 
     def close_all_cameras(self) -> None:
         """Close all camera contexts."""
