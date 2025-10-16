@@ -58,7 +58,44 @@ class PhysicsBackend(ABC):
         """Return sensor data slice given its address and dimension."""
         ...
 
+    # ---- Camera Interface ----
     @abstractmethod
-    def render_camera(self, camera_name: str, resolution: tuple[int, int]) -> np.ndarray:
-        """Render an RGB image from the specified camera."""
+    def init_camera(self, camera_name: str, resolution: tuple[int, int]) -> None:
+        """
+        Initialize and store an offscreen camera for rendering.
+        Implementations should allocate rendering context and resources.
+        """
+        ...
+
+    @abstractmethod
+    def render_camera(self, camera_name: str) -> np.ndarray:
+        """
+        Render a single RGB frame from the specified camera.
+        Returns:
+            np.ndarray: (H, W, 3) RGB image.
+        """
+        ...
+
+    @abstractmethod
+    def render_all_cameras(self) -> dict[str, np.ndarray]:
+        """
+        Render all initialized cameras and return a mapping:
+            {camera_name: RGB_image}
+        """
+        ...
+
+    @abstractmethod
+    def close_camera(self, camera_name: str) -> None:
+        """
+        Close and free resources for a single camera.
+        Implementations should destroy its context.
+        """
+        ...
+
+    @abstractmethod
+    def close_all_cameras(self) -> None:
+        """
+        Close and free resources for all initialized cameras.
+        Implementations should safely terminate the rendering backend.
+        """
         ...
