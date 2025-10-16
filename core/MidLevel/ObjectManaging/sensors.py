@@ -10,18 +10,13 @@ from ...LowLevel.Utilities.globals import ENVIRONMENT
 class MujocoSensor:
     def __init__(self, sensor_name):
         self._sensor_name = sensor_name
-        self._sid = ENVIRONMENT.sensor_id(sensor_name)  # numeric sensor-id
-        self._adr = ENVIRONMENT.model.sensor_adr[
-            self._sid
-        ]  # start index into sensor-data
-        self._dim = ENVIRONMENT.model.sensor_dim[self._sid]
 
     @property
     def sensor_name(self):
         return self._sensor_name
 
     def get(self):
-        return ENVIRONMENT.data.sensordata[self._adr : self._adr + self._dim]
+        return ENVIRONMENT.get_sensor_data(self._sensor_name)
 
     def status(self):
         status = "Basic Sensor status:"
