@@ -181,69 +181,13 @@ class ENV:
         return self._backend.sensor_name(sensor)
 
     # ---- Poses for free bodies and joints ----
-    def set_free_body_pose(
-        self,
-        body: Union[str, int],
-        pos_world: Optional[Iterable[float]] = None,
-        quat_wxyz: Optional[Iterable[float]] = None,
-    ):
-        """
-        Set the pose for a body with a freejoint. Quat must be [w,x,y,z].
-        """
-        bid = self.body_id(body)
-        # Get the freejoint that belongs to this body
-        jid = self._model.body_jntnum[bid]
-        if jid <= 0:
-            raise ValueError(
-                f"Body '{self.body_name(bid)}' has no joint or not a freejoint."
-            )
-        jadr = self._model.jnt_qposadr[self._model.body_jntadr[bid]]
-        jtype = self._model.jnt_type[self._model.body_jntadr[bid]]
-        if jtype != mujoco.mjtJoint.mjJNT_FREE:
-            raise ValueError(
-                f"Body '{self.body_name(bid)}' primary joint is not free (type={int(jtype)})."
-            )
+    def set_free_body_pose(self, body: Union[str, int],
+                           pos_world: Optional[Iterable[float]] = None, quat_wxyz: Optional[Iterable[float]] = None):
+        self._backend.set_free_body_pose(body, pos_world, quat_wxyz)
 
-        if pos_world is not None:
-            self._data.qpos[jadr : jadr + 3] = np.asarray(
-                pos_world, dtype=float
-            ).reshape(3)
-        if quat_wxyz is not None:
-            self._data.qpos[jadr + 3 : jadr + 7] = np.asarray(
-                quat_wxyz, dtype=float
-            ).reshape(4)
-
-    def set_free_body_velocity(
-        self,
-        body: Union[str, int],
-        linvel_world: Optional[Iterable[float]] = None,
-        angvel_world: Optional[Iterable[float]] = None,
-    ):
-        """
-        Set the spatial velocity for a freejoint body (qvel portion).
-        MuJoCo freejoint velocity order: [3 ang, 3 lin].
-        """
-        bid = self.body_id(body)
-        jid = self._model.body_jntnum[bid]
-        if jid <= 0:
-            raise ValueError(
-                f"Body '{self.body_name(bid)}' has no joint or not a freejoint."
-            )
-        vadr = self._model.jnt_dofadr[self._model.body_jntadr[bid]]
-        jtype = self._model.jnt_type[self._model.body_jntadr[bid]]
-        if jtype != mujoco.mjtJoint.mjJNT_FREE:
-            raise ValueError(
-                f"Body '{self.body_name(bid)}' primary joint is not free (type={int(jtype)})."
-            )
-
-        if angvel_world is not None:
-            self._data.qvel[vadr : vadr + 3] = np.asarray(
-                angvel_world, dtype=float
-            ).reshape(3)
-        if linvel_world is not None:
-            self._data.qvel[vadr + 3 : vadr + 6] = np.asarray(
-                linvel_world, dtype=float
-            ).reshape(3)
+    def set_free_body_velocity(self, body: Union[str, int],
+                               linvel_world: Optional[Iterable[float]] = None, angvel_world: Optional[Iterable[float]] = None):
+        self._backend.set_free_body_velocity(body, linvel_world, angvel_world)
 
     def set_joint_qpos(self, joint: Union[str, int], value: float):
         jid = self.joint_id(joint)
