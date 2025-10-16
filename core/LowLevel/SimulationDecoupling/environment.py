@@ -1,3 +1,4 @@
+# core/LowLevel/SimulationDecoupling/environment.py
 from __future__ import annotations
 from dataclasses import dataclass, field
 
@@ -24,11 +25,14 @@ class WindConfig:
 
 class ENV:
     def __init__(self, path_to_xml):
-        self._model = mujoco.MjModel.from_xml_path(path_to_xml)
-        self._data = mujoco.MjData(self._model)
-        self._dt = self._model.opt.timestep
 
         self._backend = MujocoBackend(path_to_xml)
+
+        # will be deprecated
+        self._model = self._backend.model
+        self._data = self._backend.data
+        self._dt = self._backend.dt
+
 
         # --- Extras state ---
         self._wind = WindConfig()
@@ -46,18 +50,18 @@ class ENV:
     # -------------------- Core properties --------------------
     @property
     def model(self) -> mujoco.MjModel:
-        return self._model
+        return self._backend.model
 
     @property
     def data(self) -> mujoco.MjData:
-        return self._data
+        return self._backend.data
 
     @property
     def dt(self) -> float:
-        return self._dt
+        return self._backend.dt
 
     def get_time(self) -> float:
-        return self._data.time
+        return self._backend.get_time()
 
     # -------------------- Simulation stepping --------------------
     def step(self, n_substeps: int = 1):
