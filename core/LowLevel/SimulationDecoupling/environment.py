@@ -119,17 +119,9 @@ class ENV:
         if not self._wind.cda_by_body:
             return  # nothing to do
 
-        # data.cvel: (nbody, 6), spatial velocity in *body* frame [ang(3), lin(3)]
-        # Convert its linear part to world frame using body xmat.
-        cvel = self._data.cvel  # shape (nbody, 6)
-        xmat = self._data.xmat.reshape(self._model.nbody, 3, 3)
-
         for body_name, cda in self._wind.cda_by_body.items():
-            bid = self.body_id(body_name)
-
-            v_lin_body = cvel[bid, 3:]  # linear velocity in body frame
-            r_bw = xmat[bid]  # body->world
-            v_lin_world = r_bw @ v_lin_body
+            # get world-frame COM velocity from backend
+            v_lin_world = self._backend.get_body_linvel(body_name)
 
             # relative wind: air minus body velocity (world frame)
             v_rel = v_w - v_lin_world
@@ -137,12 +129,11 @@ class ENV:
             if speed <= 1e-9 or cda <= 0.0 or rho <= 0.0:
                 continue
 
-            # Quadratic drag, direction opposing relative motion
-            f = 0.5 * rho * cda * speed * v_rel  # world frame
+            # Quadratic drag (world frame)
+            f = 0.5 * rho * cda * speed * v_rel
 
-            # Apply at COM (no torque)
-            self._data.xfrc_applied[bid, :3] += f
-            # torque left zero
+            # Apply at COM through backend
+            self._backend.apply_force(body_name, f)
 
     # -------------------- External forces helpers --------------------
     def apply_force(self, body: str | int, force_world: Iterable[float], torque_world: Optional[Iterable[float]] = None,
