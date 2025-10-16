@@ -1,5 +1,5 @@
 <mujoco model="Skydio X2">
-    <compiler autolimits="true" assetdir="assets"/>
+  <compiler autolimits="true" assetdir="assets"/>
 
   <option timestep="0.005" integrator="implicit" density="1.225" viscosity="1.8e-5" wind="0 0 0"/>
 
@@ -38,10 +38,14 @@
 
       <geom material="phong3SG" mesh="X2_lowpoly" class="visual" quat="0 0 1 1"/>
 
-      <geom class="collision" size=".06 .027 .02" pos=".04 0 .02" friction="2.0 1.0 0.05" margin="0.01" solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
-      <geom class="collision" size=".06 .027 .02" pos=".04 0 .06" friction="2.0 1.0 0.05" margin="0.01" solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
-      <geom class="collision" size=".05 .027 .02" pos="-.07 0 .065" friction="2.0 1.0 0.05" margin="0.01" solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
-      <geom class="collision" size=".023 .017 .01" pos="-.137 .008 .065" friction="2.0 1.0 0.05" margin="0.01" solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
+      <geom class="collision" size=".06 .027 .02" pos=".04 0 .02" friction="2.0 1.0 0.05" margin="0.01"
+            solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
+      <geom class="collision" size=".06 .027 .02" pos=".04 0 .06" friction="2.0 1.0 0.05" margin="0.01"
+            solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
+      <geom class="collision" size=".05 .027 .02" pos="-.07 0 .065" friction="2.0 1.0 0.05" margin="0.01"
+            solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
+      <geom class="collision" size=".023 .017 .01" pos="-.137 .008 .065" friction="2.0 1.0 0.05" margin="0.01"
+            solref="0.002 1.0" solimp="0.90 0.95 0.002" rgba="1 0 0 0.5"/>
 
       <geom name="rotor1" class="rotor" pos="-.14 -.18 .08" mass=".25"/>
       <geom name="rotor2" class="rotor" pos="-.14 .18 .08" mass=".25"/>
@@ -55,7 +59,7 @@
       <site name="thrust4" pos=".14 -.18 .08"/>
 
       <site name="Quadrotor_site_gps" pos="0 0 0.03" size="0.002"/>
-      <site name="Quadrotor_site_imu"        pos="0 0 0.02"/>
+      <site name="Quadrotor_site_imu" pos="0 0 0.02"/>
       <site name="Quadrotor_site_rangefinder" pos="0 0 0" quat="0 1 0 0" size="0.002" rgba="1 1 1 0"/>
     </body>
   </worldbody>
@@ -68,13 +72,13 @@
   </actuator>
 
   <sensor>
-    <framepos      name="Quadrotor_framepos"    objtype="site" objname="Quadrotor_site_gps"/>
-    <velocimeter   name="Quadrotor_velocimeter" site="Quadrotor_site_gps"/>
+    <framepos name="Quadrotor_framepos" objtype="site" objname="Quadrotor_site_gps"/>
+    <velocimeter name="Quadrotor_velocimeter" site="Quadrotor_site_gps"/>
   </sensor>
 
   <sensor>
-    <framequat     name="Quadrotor_framequat"     objtype="site" objname="Quadrotor_site_imu"/>
-    <gyro          name="Quadrotor_gyro"          site="Quadrotor_site_imu"/>
+    <framequat name="Quadrotor_framequat" objtype="site" objname="Quadrotor_site_imu"/>
+    <gyro name="Quadrotor_gyro" site="Quadrotor_site_imu"/>
     <accelerometer name="Quadrotor_accelerometer" site="Quadrotor_site_imu"/>
   </sensor>
 
