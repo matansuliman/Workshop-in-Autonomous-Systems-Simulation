@@ -197,8 +197,7 @@ class ENV:
 
     # -------------------- Actuators / controls --------------------
     def set_ctrl(self, actuator: Union[str, int], value: float):
-        aid = self.actuator_id(actuator)
-        self._data.ctrl[aid] = float(value)
+        self._backend.set_ctrl(actuator, value)
 
     def set_ctrls(self, values_by_name: Dict[str, float]):
         for name, val in values_by_name.items():
