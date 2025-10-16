@@ -44,4 +44,4 @@ class CameraStreamer(QObject):
 
             self._fps.maintain()
 
-        self._env.close_camera(self._camera_name)
+        ENVIRONMENT.close_camera(self._camera_name)
