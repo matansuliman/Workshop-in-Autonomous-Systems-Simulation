@@ -4,8 +4,6 @@ from dataclasses import dataclass, field
 
 from typing import Dict, Iterable, Optional, Union
 import mujoco
-import mujoco.viewer
-import glfw
 import numpy as np
 
 from ...LowLevel.SimulationDecoupling.mujoco_backend import MujocoBackend
@@ -27,12 +25,6 @@ class ENV:
     def __init__(self, path_to_xml):
 
         self._backend = MujocoBackend(path_to_xml)
-
-        # will be deprecated
-        self._model = self._backend.model
-        self._data = self._backend.data
-        self._dt = self._backend.dt
-
 
         # --- Extras state ---
         self._wind = WindConfig()
@@ -204,42 +196,12 @@ class ENV:
             self.set_ctrl(name, val)
 
     def actuators_for_body(self, body: int | str):
-        """
-        Return actuator ids and names that act on the given body.
-        Works for JOINT-driven and SITE-driven actuators.
-        """
-        if isinstance(body, str):
-            body_id = self.body_id(body)
-        else:
-            body_id = int(body)
-
-        mdl = self._model
-        ids, names = [], []
-
-        for aid in range(mdl.nu):
-            trntype = int(mdl.actuator_trntype[aid])
-            idx0 = int(mdl.actuator_trnid[aid, 0])
-
-            # JOINT-driven
-            if trntype == mujoco.mjtTrn.mjTRN_JOINT:
-                if 0 <= idx0 < mdl.njnt and mdl.jnt_bodyid[idx0] == body_id:
-                    ids.append(aid)
-                    names.append(mdl.actuator(aid).name)
-                continue
-
-            # SITE-driven (e.g. quadrotor motors)
-            if trntype == mujoco.mjtTrn.mjTRN_SITE:
-                if 0 <= idx0 < mdl.nsite and mdl.site_bodyid[idx0] == body_id:
-                    ids.append(aid)
-                    names.append(mdl.actuator(aid).name)
-                continue
-
-        return ids, names
+        return self._backend.actuators_for_body(body)
 
     # -------------------- Convenience: quick “hover” gravity tweak --------------------
     def set_gravity_scale(self, scale: float):
         """Scale current gravity vector magnitude by 'scale' (sign preserved)."""
-        g = self._model.opt.gravity.copy()
+        g = self._backend.get_gravity()
         mag = np.linalg.norm(g)
         if mag > 0:
             self._backend.set_gravity(g * scale)
