@@ -27,7 +27,7 @@ class CameraStreamer(QObject):
         self._camera = mujoco.MjvCamera()
         self._camera.type = mujoco.mjtCamera.mjCAMERA_FIXED
         self._camera.fixedcamid = mujoco.mj_name2id(
-            ENVIRONMENT.model, mujoco.mjtObj.mjOBJ_CAMERA, "bottom_cam"
+            ENVIRONMENT._backend.model, mujoco.mjtObj.mjOBJ_CAMERA, "bottom_cam"
         )
 
         LOGGER.info(f"\tCameraStreamer: Initiated {self.__class__.__name__}")
@@ -47,16 +47,16 @@ class CameraStreamer(QObject):
         glfw.window_hint(glfw.SAMPLES, 4)
         offscreen_window = glfw.create_window(w, h, "", None, None)
         glfw.make_context_current(offscreen_window)
-        scene = mujoco.MjvScene(ENVIRONMENT.model, maxgeom=1000)
+        scene = mujoco.MjvScene(ENVIRONMENT._backend.model, maxgeom=1000)
         context = mujoco.MjrContext(
-            ENVIRONMENT.model, mujoco.mjtFontScale.mjFONTSCALE_150
+            ENVIRONMENT._backend.model, mujoco.mjtFontScale.mjFONTSCALE_150
         )
 
         while self._simulation.continue_streaming():
 
             mujoco.mjv_updateScene(
-                ENVIRONMENT.model,
-                ENVIRONMENT.data,
+                ENVIRONMENT._backend.model,
+                ENVIRONMENT._backend.data,
                 self._option,
                 None,
                 self._camera,
