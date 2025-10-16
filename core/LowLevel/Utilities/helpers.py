@@ -19,9 +19,10 @@ def print_for_gui(data, precision= CONFIG["gui"]["precision"]):
         return _print_array_of_nums(data, precision)
     elif isinstance(data, int) or isinstance(data, float):
         return _print_num(data, precision)
+    elif isinstance(data, bool):
+        return "True" if data else "False"
     else:
-        print(t)
-        return "not implemented"
+        return str(data)
 
 
 def generate_normal_clipped(mean=0, std=1, low=0, high=1, size=1):
