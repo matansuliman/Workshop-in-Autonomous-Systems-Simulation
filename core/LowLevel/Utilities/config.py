@@ -10,4 +10,4 @@ class ConfigProfile:
         return self._profile
 
 
-CONFIG = ConfigProfile().get_profile()
+CONFIG = ConfigProfile().profile
