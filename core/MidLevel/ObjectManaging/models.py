@@ -57,7 +57,7 @@ class BasicModel:
         return ENVIRONMENT.world_linvel_of_body(self._body_id)
 
     def update_log(self):
-        t = ENVIRONMENT.data.time
+        t = ENVIRONMENT.get_time()
         x_true, y_true, z_true = self.get_true_pos()
         vx_true, vy_true, vz_true = self.get_true_vel()
         x, y, z = self.get_pos()
