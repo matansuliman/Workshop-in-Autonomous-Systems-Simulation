@@ -60,8 +60,6 @@ class MyTimer:
 
     def __str__(self):
         res = ""
-        res += f"\t\ttime started: {print_for_gui(self._time_started)}"
-        res += f"\t\ttime paused: {print_for_gui(self._time_paused)}"
-        res += f"\t\tpaused: {print_for_gui(self._paused)}"
-        res += f"\t\tceil: {print_for_gui(self._ceil)}\n"
+        res += f"\t\tdt: {print_for_gui(self.get())}"
+        res += f"\t\tceil: {print_for_gui(self._ceil)} seconds\n"
         return res
