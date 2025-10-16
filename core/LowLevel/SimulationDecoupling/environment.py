@@ -28,6 +28,8 @@ class ENV:
         self._data = mujoco.MjData(self._model)
         self._dt = self._model.opt.timestep
 
+        self._backend = MujocoBackend(path_to_xml)
+
         # --- Extras state ---
         self._wind = WindConfig()
 
