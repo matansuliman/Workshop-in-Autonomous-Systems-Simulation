@@ -139,6 +139,7 @@ QuadrotorController:
 
 
 camera_streamer:
+  name: bottom_cam
   resolutions:
     high: [640, 480]
     low: [320, 240]
