@@ -308,11 +308,7 @@ class ENV:
 
     # -------------------- Debug helpers --------------------
     def world_linvel_of_body(self, body: Union[str, int]) -> np.ndarray:
-        """Return world-frame COM linear velocity of a body (derived from cvel)."""
-        bid = self.body_id(body)
-        r_bw = self._data.xmat[bid].reshape(3, 3)
-        v_lin_body = self._data.cvel[bid, 3:]  # body frame
-        return r_bw @ v_lin_body
+        return self._backend.get_body_linvel(body)
 
     def world_pos_of_body(self, body: Union[str, int]) -> np.ndarray:
-        return self._data.xpos[self.body_id(body)].copy()
+        return self._backend.get_body_pos(body)
