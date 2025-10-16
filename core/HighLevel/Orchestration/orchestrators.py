@@ -1,4 +1,3 @@
-import mujoco
 import numpy as np
 
 from ...MidLevel.ObjectManaging.models import Quadrotor, Pad
@@ -11,8 +10,7 @@ from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 class BasicOrchestrator:
     def __init__(self):
         LOGGER.info("\t\tOrchestrator: Initiating")
-        self._viewer = ENVIRONMENT.launch_viewer()
-        self._viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_CONTACTPOINT] = True
+        self._viewer = ENVIRONMENT.launch_viewer(show_contacts=True)
         self._models = dict()
         self._controllers = dict()
 
@@ -142,10 +140,7 @@ class Follow(BasicOrchestrator):
         self._controllers["Pad"].step()
 
     def _step_drone(self):
-        (
-            _,
-            p,
-        ) = self.models.values()
+        q, p = self.models.values()
         qc, pc = self.controllers.values()
 
         qc.descend = self._can_land()
