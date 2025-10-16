@@ -2,7 +2,7 @@
 from __future__ import annotations
 from typing import Iterable, Optional
 import numpy as np
-import mujoco
+import mujoco, mujoco.viewer
 
 from ...LowLevel.SimulationDecoupling.backend import PhysicsBackend
 
@@ -13,6 +13,7 @@ class MujocoBackend(PhysicsBackend):
     def __init__(self, xml_path: str):
         self._model = mujoco.MjModel.from_xml_path(xml_path)
         self._data = mujoco.MjData(self._model)
+        self._viewer = None
         self._cameras = {}
 
     # --- core properties ----
@@ -152,11 +153,24 @@ class MujocoBackend(PhysicsBackend):
             self.set_ctrl(name, val)
 
     # ---- Viewer ----
-    def launch_viewer(self):
-        import glfw, mujoco.viewer
+    def launch_viewer(self, show_contacts: bool = False):
+        """Launch a passive MuJoCo viewer with optional contact visualization."""
+        import glfw
         glfw.init()
-        return mujoco.viewer.launch_passive(self._model, self._data)
 
+        viewer = mujoco.viewer.launch_passive(self._model, self._data)
+
+        if show_contacts:
+            viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_CONTACTPOINT] = True
+
+        self._viewer = viewer
+        return viewer
+
+    def close_viewer(self):
+        """Close the viewer if open."""
+        if hasattr(self, "_viewer") and self._viewer is not None:
+            self._viewer.close()
+            self._viewer = None
 
     # ---- Setters ----
     def set_free_body_pose(self, body: str | int,
