@@ -147,6 +147,10 @@ class ENV:
     # -------------------- External forces helpers --------------------
     def apply_force(self, body: str | int, force_world: Iterable[float], torque_world: Optional[Iterable[float]] = None,
                     *, mode: str = "add", ) -> None:
+        """
+        Apply an external spatial force (world frame) on a body COM for the current step.
+        If mode == 'set' it overwrites; if 'add' it accumulates.
+        """
         self._backend.apply_force(body, force_world, torque_world, mode=mode)
 
     def clear_external_forces(self):

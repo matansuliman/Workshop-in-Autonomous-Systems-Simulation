@@ -38,6 +38,10 @@ class MujocoBackend(PhysicsBackend):
     # ---- external forces ----
     def apply_force(self, body: str | int, force_world: Iterable[float], torque_world: Optional[Iterable[float]] = None,
                     *, mode: str = "add", ) -> None:
+        """
+        Apply an external spatial force (world frame) on a body COM for the current step.
+        If mode == 'set' it overwrites; if 'add' it accumulates.
+        """
         f = np.asarray(force_world, dtype=float).reshape(3)
         t = np.asarray(torque_world or (0.0, 0.0, 0.0), dtype=float).reshape(3)
         bid = self._model.body(body).id if isinstance(body, str) else int(body)
@@ -52,6 +56,7 @@ class MujocoBackend(PhysicsBackend):
             raise ValueError("mode must be 'set' or 'add'")
 
     def clear_external_forces(self) -> None:
+        """Zero out all xfrc_applied for this step (safe to call every step)."""
         self._data.xfrc_applied[:, :] = 0.0
 
     # ---- world parameters ----
