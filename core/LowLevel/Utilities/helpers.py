@@ -14,7 +14,6 @@ def _print_array_of_nums(arr: list, precision):
     return "  ".join([_print_num(x, precision) for x in arr])
 
 def print_for_gui(data, precision= CONFIG["gui"]["precision"]):
-    t = type(data)
     if isinstance(data, list) or isinstance(data, tuple) or isinstance(data, np.ndarray):
         return _print_array_of_nums(data, precision)
     elif isinstance(data, int) or isinstance(data, float):
