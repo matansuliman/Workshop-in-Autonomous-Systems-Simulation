@@ -1,7 +1,7 @@
 <mujoco model="Skydio X2">
 
   <asset>
-    <texture name="donut_tex" type="2d" file="donut_with_markers.png"/>
+    <texture name="donut_tex" type="2d" file="donut_with_marker.png"/>
     <material name="donut_material" texture="donut_tex" texrepeat="1 1" texuniform="true"/>
   </asset>
 
