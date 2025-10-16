@@ -155,3 +155,35 @@ class MujocoBackend(PhysicsBackend):
         import glfw, mujoco.viewer
         glfw.init()
         return mujoco.viewer.launch_passive(self._model, self._data)
+
+    def set_free_body_pose(self, body: str | int,
+                           pos_world: Optional[Iterable[float]] = None, quat_wxyz: Optional[Iterable[float]] = None):
+        bid = self.body_id(body)
+        jid = self._model.body_jntnum[bid]
+        if jid <= 0:
+            raise ValueError(f"Body '{self.body_name(bid)}' has no joint or not freejoint.")
+        jadr = self._model.jnt_qposadr[self._model.body_jntadr[bid]]
+        jtype = self._model.jnt_type[self._model.body_jntadr[bid]]
+        if jtype != mujoco.mjtJoint.mjJNT_FREE:
+            raise ValueError(f"Body '{self.body_name(bid)}' primary joint is not free.")
+
+        if pos_world is not None:
+            self._data.qpos[jadr:jadr + 3] = np.asarray(pos_world, dtype=float).reshape(3)
+        if quat_wxyz is not None:
+            self._data.qpos[jadr + 3:jadr + 7] = np.asarray(quat_wxyz, dtype=float).reshape(4)
+
+    def set_free_body_velocity(self, body: str | int,
+                               linvel_world: Optional[Iterable[float]] = None, angvel_world: Optional[Iterable[float]] = None):
+        bid = self.body_id(body)
+        jid = self._model.body_jntnum[bid]
+        if jid <= 0:
+            raise ValueError(f"Body '{self.body_name(bid)}' has no joint or not freejoint.")
+        vadr = self._model.jnt_dofadr[self._model.body_jntadr[bid]]
+        jtype = self._model.jnt_type[self._model.body_jntadr[bid]]
+        if jtype != mujoco.mjtJoint.mjJNT_FREE:
+            raise ValueError(f"Body '{self.body_name(bid)}' primary joint is not free.")
+
+        if angvel_world is not None:
+            self._data.qvel[vadr:vadr + 3] = np.asarray(angvel_world, dtype=float).reshape(3)
+        if linvel_world is not None:
+            self._data.qvel[vadr + 3:vadr + 6] = np.asarray(linvel_world, dtype=float).reshape(3)
