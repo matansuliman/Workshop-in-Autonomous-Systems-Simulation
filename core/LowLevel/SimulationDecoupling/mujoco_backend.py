@@ -229,6 +229,50 @@ class MujocoBackend(PhysicsBackend):
         return self._model.opt.gravity.copy()
 
 
+    # ---- Sensors ----
+    def get_sensor_metadata(self, sensor_name: str) -> tuple[int, int]:
+        sid = self.sensor_id(sensor_name)
+        adr = self._model.sensor_adr[sid]
+        dim = self._model.sensor_dim[sid]
+        return adr, dim
+
+    def get_sensor_data(self, sensor_name: str) -> np.ndarray:
+        adr, dim = self.get_sensor_metadata(sensor_name)
+        return self._data.sensordata[adr: adr + dim].copy()
+
+    # ---- Camera ----
+    def render_camera(self, camera_name: str, resolution: tuple[int, int]) -> np.ndarray:
+        import glfw
+
+        # Initialize offscreen context once per backend instance
+        if not glfw.init():
+            raise RuntimeError("GLFW initialization failed")
+
+        width, height = resolution
+        glfw.window_hint(glfw.VISIBLE, glfw.FALSE)
+        window = glfw.create_window(width, height, "", None, None)
+        glfw.make_context_current(window)
+
+        # Create camera and scene
+        camera = mujoco.MjvCamera()
+        option = mujoco.MjvOption()
+        scene = mujoco.MjvScene(self._model, maxgeom=1000)
+        context = mujoco.MjrContext(self._model, mujoco.mjtFontScale.mjFONTSCALE_150)
+
+        cam_id = mujoco.mj_name2id(self._model, mujoco.mjtObj.mjOBJ_CAMERA, camera_name)
+        camera.type = mujoco.mjtCamera.mjCAMERA_FIXED
+        camera.fixedcamid = cam_id
+
+        # Update and render
+        mujoco.mjv_updateScene(self._model, self._data, option, None, camera, mujoco.mjtCatBit.mjCAT_ALL, scene)
+        mujoco.mjr_render(mujoco.MjrRect(0, 0, width, height), scene, context)
+
+        rgb = np.zeros((height, width, 3), dtype=np.uint8)
+        mujoco.mjr_readPixels(rgb, None, mujoco.MjrRect(0, 0, width, height), context)
+        rgb = np.flip(rgb, axis=0)
+
+        glfw.destroy_window(window)
+        return rgb
 
 
 
