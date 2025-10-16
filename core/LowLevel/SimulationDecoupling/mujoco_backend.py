@@ -27,14 +27,8 @@ class MujocoBackend(PhysicsBackend):
         mujoco.mj_step(self._model, self._data)
 
     # ---- external forces ----
-    def apply_force(
-        self,
-        body: str | int,
-        force_world: Iterable[float],
-        torque_world: Optional[Iterable[float]] = None,
-        *,
-        mode: str = "add",
-    ) -> None:
+    def apply_force(self, body: str | int, force_world: Iterable[float], torque_world: Optional[Iterable[float]] = None,
+                    *, mode: str = "add", ) -> None:
         f = np.asarray(force_world, dtype=float).reshape(3)
         t = np.asarray(torque_world or (0.0, 0.0, 0.0), dtype=float).reshape(3)
         bid = self._model.body(body).id if isinstance(body, str) else int(body)
