@@ -83,11 +83,7 @@ class ENV:
     def enable_wind(self, enabled: bool = True):
         self._wind.enabled = enabled
 
-    def set_wind(
-        self,
-        velocity_world: Union[Iterable[float], np.ndarray],
-        air_density: Optional[float] = None,
-    ):
+    def set_wind(self, velocity_world: Union[Iterable[float], np.ndarray], air_density: Optional[float] = None):
         self._wind.velocity_world = np.asarray(velocity_world, dtype=float).reshape(3)
         if air_density is not None:
             self._wind.air_density = float(air_density)
@@ -162,28 +158,9 @@ class ENV:
         self._backend.set_timestep(dt)
 
     # -------------------- Reset helpers --------------------
-    def reset(
-        self,
-        qpos: Optional[Iterable[float]] = None,
-        qvel: Optional[Iterable[float]] = None,
-    ):
+    def reset(self, qpos: Optional[Iterable[float]] = None, qvel: Optional[Iterable[float]] = None) -> None:
         """mj_resetData + optional state overwrite."""
-        mujoco.mj_resetData(self._model, self._data)
-        if qpos is not None:
-            qpos = np.asarray(qpos, dtype=float)
-            if qpos.size != self._model.nq:
-                raise ValueError(
-                    f"qpos has size {qpos.size}, expected {self._model.nq}"
-                )
-            self._data.qpos[:] = qpos
-        if qvel is not None:
-            qvel = np.asarray(qvel, dtype=float)
-            if qvel.size != self._model.nv:
-                raise ValueError(
-                    f"qvel has size {qvel.size}, expected {self._model.nv}"
-                )
-            self._data.qvel[:] = qvel
-        mujoco.mj_forward(self._model, self._data)
+        self._backend.reset(qpos, qvel)
 
     # -------------------- Body / joint utilities --------------------
     def body_id(self, body: Union[str, int]) -> int:
