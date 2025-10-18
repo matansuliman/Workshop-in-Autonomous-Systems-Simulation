@@ -4,8 +4,10 @@ import numpy as np
 from PySide6.QtCore import Signal, QObject
 
 from ...LowLevel.Timing.fps import BasicFPS
+
 from ...LowLevel.Utilities.helpers import print_for_gui
 from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
+from ...LowLevel.Utilities.decorators import safe_call
 
 
 class CameraStreamer(QObject):
@@ -28,6 +30,7 @@ class CameraStreamer(QObject):
         status += f"\ttarget fps: {print_for_gui(self._fps.target_fps)}"
         return status
 
+    @safe_call()
     def run(self):
         ENVIRONMENT.init_camera(self._camera_name, tuple(self._resolutions["high"]))
 
