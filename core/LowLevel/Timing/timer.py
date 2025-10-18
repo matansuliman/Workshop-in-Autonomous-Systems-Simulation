@@ -1,4 +1,4 @@
-# mytimer.py
+# core/LowLevel/Timing/timer.py
 from datetime import datetime
 
 from ...LowLevel.Utilities.helpers import print_for_gui
