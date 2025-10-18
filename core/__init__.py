@@ -1,2 +1,2 @@
-# simulation/__init__.py
+# core/__init__.py
 # empty file
