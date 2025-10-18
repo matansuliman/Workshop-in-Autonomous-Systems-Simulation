@@ -10,7 +10,10 @@ from ...LowLevel.Timing.fps import BasicFPS
 
 from ...LowLevel.Utilities.helpers import print_for_gui
 from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
+from ...LowLevel.Utilities.decorators import safe_call
+
 from ...LowLevel.RuntimeOutputs.plots import plot
+
 
 
 class BasicSimulationRunner:
@@ -102,6 +105,7 @@ class SimulationRunner(QObject, BasicSimulationRunner):
     def plot_logs(self):
         plot(self._orchestrator.get_logs())
 
+    @safe_call()
     def run(self):
         LOGGER.debug("Simulation: Running")
         self._timer.start()
