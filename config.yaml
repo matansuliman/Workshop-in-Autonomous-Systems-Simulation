@@ -27,7 +27,7 @@ logger:
   name: app
   dir_name: outputs
   ext: log
-  fmt: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+  fmt: "%(log_color)s%(asctime)s [%(levelname)s] %(name)s: %(message)s"
   datefmt: "%Y-%m-%d %H:%M:%S"
 
 plotter:
