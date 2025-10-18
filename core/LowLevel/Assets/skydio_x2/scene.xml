@@ -1,3 +1,4 @@
+<!-- core/LowLevel/Assets/skydio_X2/assets/scene.xml -->
 <mujoco model="Skydio X2 scene">
   <compiler autolimits="true" assetdir="assets"/>
 
