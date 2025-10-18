@@ -8,9 +8,12 @@ from ...HighLevel.MainThreads.guis import GUI
 from ...HighLevel.MainThreads.streamers import CameraStreamer
 
 from ...LowLevel.Utilities.globals import LOGGER
+from ...LowLevel.Utilities.decorators import safe_call
 
 
 class App:
+
+    @safe_call()
     def __init__(self):
         LOGGER.info("App: Initiating")
         self._app = QApplication(sys.argv)
@@ -19,6 +22,7 @@ class App:
         self._gui = GUI(simulation=self._simulation)
         LOGGER.info("App: Initiated")
 
+    @safe_call()
     def run(self) -> None:
         LOGGER.info("App: Running")
         LOGGER.debug("App: Connecting camera streamer to gui")
@@ -38,6 +42,7 @@ class App:
         self._gui.show()
         self._app.exec()
 
+    @safe_call()
     def exit(self):
         LOGGER.info("App: Exiting")
         self._simulation.plot_logs()
