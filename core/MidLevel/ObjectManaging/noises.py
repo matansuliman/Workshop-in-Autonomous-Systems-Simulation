@@ -1,3 +1,4 @@
+# core/MidLevel/ObjectManaging/noises.py
 import numpy as np
 
 from ...LowLevel.Utilities.helpers import print_for_gui, generate_normal_clipped
