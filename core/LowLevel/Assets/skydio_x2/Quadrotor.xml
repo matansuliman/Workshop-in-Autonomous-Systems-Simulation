@@ -1,3 +1,4 @@
+<!-- core/LowLevel/Assets/skydio_X2/assets/Quadrotor.xml -->
 <mujoco model="Skydio X2">
   <compiler autolimits="true" assetdir="assets"/>
 
