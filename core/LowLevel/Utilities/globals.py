@@ -1,3 +1,4 @@
+# core/LowLevel/Utilities/globals.py
 from ...LowLevel.SimulationDecoupling.environment import ENV
 from ...LowLevel.RuntimeOutputs.logger import setup_logger
 from ...LowLevel.Utilities.config import CONFIG
