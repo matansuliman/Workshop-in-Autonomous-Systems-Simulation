@@ -1,6 +1,6 @@
 # core/LowLevel/RuntimeOutputs/logger.py
 import os, logging
-
+from colorlog import ColoredFormatter
 
 def setup_logger(
     name="logger-empty",
@@ -21,7 +21,17 @@ def setup_logger(
     stream_handler = logging.StreamHandler()
 
     # Formatters
-    formatter = logging.Formatter(fmt=fmt, datefmt=datefmt)
+    formatter = ColoredFormatter(
+        fmt=fmt,
+        datefmt=datefmt,
+        log_colors={
+            'DEBUG': 'cyan',
+            'INFO': 'green',
+            'WARNING': 'yellow',
+            'ERROR': 'red',
+            'CRITICAL': 'bold_red',
+        }
+    )
     file_handler.setFormatter(formatter)
     stream_handler.setFormatter(formatter)
 
