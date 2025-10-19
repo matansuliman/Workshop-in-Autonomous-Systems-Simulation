@@ -103,7 +103,7 @@ class SimulationRunner(QObject, BasicSimulationRunner):
 
     # app.py
     def plot_logs(self):
-        plot(self._orchestrator.get_logs())
+        self._orchestrator.plot_logs()
 
     @safe_call()
     def run(self):
