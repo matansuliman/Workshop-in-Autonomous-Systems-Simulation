@@ -131,8 +131,10 @@ class Follow(BasicOrchestrator):
         return norm_from_center + epsilon < p.radius
 
     def _can_land(self):
-        stable_short_term = self._predictor.is_model_stable(mode="short_term")
-        return stable_short_term and self._drone_above_pad()
+        return (
+            self._predictor.confidante(mode="short_term") and
+            self._drone_above_pad()
+        )
 
     def _step_predictor(self):
         self._predictor.predict()
