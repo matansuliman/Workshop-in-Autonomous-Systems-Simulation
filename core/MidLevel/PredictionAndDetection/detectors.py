@@ -24,8 +24,8 @@ class BasicDetector:
     def is_empty(self):
         return len(self._history) == 0
 
-    def is_full(self):
-        return len(self._history) == self._history.maxlen
+    def is_full(self, mode="long_term"):
+        return len(self._history) >= CONFIG["Detector"][f"{mode}_len"]
 
     def get_last(self):
         return self._history[-1] if not self.is_empty() else np.array([np.inf, np.inf])
@@ -46,15 +46,15 @@ class ArUcoMarkerDetector(BasicDetector):
         self._image_size_trained = CONFIG["Detector"]["image_size_trained"]
         LOGGER.info(f"\t\t\t\tDetector: Initiated {self.__class__.__name__}")
 
-    def get_stddev(self, mode="long-term"):
+    def get_stddev(self, mode="long_term"):
         if self.is_empty():
             return np.inf
         match mode:
-            case "long-term":
+            case "long_term":
                 history = np.array(self._history)[
                     -CONFIG["Detector"]["long_term_len"] :
                 ]
-            case "short-term":
+            case "short_term":
                 history = np.array(self._history)[
                     -CONFIG["Detector"]["short_term_len"] :
                 ]
@@ -63,7 +63,7 @@ class ArUcoMarkerDetector(BasicDetector):
         std_xy = np.stack(history.std(axis=0, ddof=0))
         return np.round(std_xy, CONFIG["Detector"]["round_precision"])
 
-    def is_stable(self, mode="long-term"):
+    def is_stable(self, mode="long_term"):
         if self.is_empty():
             return False
         return sum(self.get_stddev(mode)) <= self._tol_stddev
@@ -74,8 +74,8 @@ class ArUcoMarkerDetector(BasicDetector):
         status += f"\tcounter: {len(self._history)}/{self._history.maxlen}\n"
         status += f"\tstddev long term: {print_for_gui(self.get_stddev())}"
         status += f"\t\tis stable long term: {self.is_stable()}\n"
-        status += f"\tstddev short term: {print_for_gui(self.get_stddev(mode= 'short-term'))}"
-        status += f"\tis stable short term: {self.is_stable(mode= 'short-term')}\n"
+        status += f"\tstddev short term: {print_for_gui(self.get_stddev(mode= 'short_term'))}"
+        status += f"\tis stable short term: {self.is_stable(mode= 'short_term')}\n"
         return status
 
     def detect(self, frame, curr_height):
