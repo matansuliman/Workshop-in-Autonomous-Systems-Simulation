@@ -23,7 +23,7 @@ class BasicOrchestrator:
     def controllers(self):
         return self._controllers
 
-    def get_logs(self):
+    def plot_logs(self):
         raise NotImplementedError("Subclasses should implement this method")
 
     def _update_logs(self):
