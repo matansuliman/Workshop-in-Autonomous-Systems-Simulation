@@ -66,7 +66,7 @@ class ArUcoMarkerDetector(BasicDetector):
     def is_stable(self, mode="long_term"):
         if not self.is_full(mode=mode):
             return False
-        return sum(self.get_stddev(mode)) <= self._tol_stddev
+        return np.sum(self.get_stddev(mode)) <= self._tol_stddev
 
     def status(self):
         status = f"{self.__class__.__name__} status:\n"
