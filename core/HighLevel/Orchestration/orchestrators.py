@@ -80,16 +80,9 @@ class Follow(BasicOrchestrator):
         self._predictor.stream_to_model(frame=frame, curr_height=curr_height)
 
     # simulation helpers
-    def get_logs(self):
-        logs_dict = dict()
-
-        models_logs = {name: model.log for name, model in self._models.items()}
-        logs_dict.update(models_logs)
-
-        # controllers_logs = {name: controller.log for name, controller in self._controllers.items()}
-        # logs_dict.update(controllers_logs)
-
-        return logs_dict
+    def plot_logs(self):
+        for model in self._models.values():
+            model.plot_log()
 
     # GUI helpers through simulation
     def status(self):
