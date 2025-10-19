@@ -64,7 +64,7 @@ class ArUcoMarkerDetector(BasicDetector):
         return np.round(std_xy, CONFIG["Detector"]["round_precision"])
 
     def is_stable(self, mode="long_term"):
-        if self.is_empty():
+        if not self.is_full(mode=mode):
             return False
         return sum(self.get_stddev(mode)) <= self._tol_stddev
 
