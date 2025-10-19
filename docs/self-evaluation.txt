@@ -7,8 +7,8 @@ Self Evaluation: This project is far from perfect and here is a guideline how to
         - Landing attempts: limit failover attempts
 
     - Decoupling: some of the files are not decupled from MuJoCo API
-        - Environment
-        - Camera Streamer
+        - done - Environment
+        - done - Camera Streamer
 
     - Configuration:
         - GUI can be improved to alter PID gains, timeout thresholds, noise parameters...
