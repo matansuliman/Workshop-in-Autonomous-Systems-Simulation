@@ -1,6 +1,7 @@
 # core/MidLevel/ObjectManaging/models.py
 from ...MidLevel.ObjectManaging.sensors import GPS, IMU, Rangefinder, Touch
 
+from ...LowLevel.RuntimeOutputs.logs import Log
 from ...LowLevel.Utilities.helpers import print_for_gui
 from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 
@@ -14,21 +15,7 @@ class BasicModel:
             pos_sensor_name=CONFIG[child_class_name]["sensors"]["pos"],
             vel_sensor_name=CONFIG[child_class_name]["sensors"]["vel"],
         )
-        self._log = {
-            "Time (sec)": [],
-            "x_true": [],
-            "y_true": [],
-            "z_true": [],
-            "vx_true": [],
-            "vy_true": [],
-            "vz_true": [],
-            "x": [],
-            "y": [],
-            "z": [],
-            "vx": [],
-            "vy": [],
-            "vz": [],
-        }
+        self._log = Log(name=f"Log {child_class_name}")
         ENVIRONMENT.set_body_cda(
             body=self._xml_name, cda=CONFIG[child_class_name]["cda"]
         )
@@ -65,23 +52,23 @@ class BasicModel:
         vx, vy, vz = self.get_vel()
 
         # Append values to the log
-        self._log["Time (sec)"].append(t)
+        self._log.append_time(t)
 
-        self._log["x_true"].append(x_true)
-        self._log["y_true"].append(y_true)
-        self._log["z_true"].append(z_true)
+        self._log.append_channel("x_true", x_true)
+        self._log.append_channel("y_true", y_true)
+        self._log.append_channel("z_true", z_true)
 
-        self._log["vx_true"].append(vx_true)
-        self._log["vy_true"].append(vy_true)
-        self._log["vz_true"].append(vz_true)
+        self._log.append_channel("vx_true", vx_true)
+        self._log.append_channel("vy_true", vy_true)
+        self._log.append_channel("vz_true", vz_true)
 
-        self._log["x"].append(x)
-        self._log["y"].append(y)
-        self._log["z"].append(z)
+        self._log.append_channel("x", x)
+        self._log.append_channel("y", y)
+        self._log.append_channel("z", z)
 
-        self._log["vx"].append(vx)
-        self._log["vy"].append(vy)
-        self._log["vz"].append(vz)
+        self._log.append_channel("vx", vx)
+        self._log.append_channel("vy", vy)
+        self._log.append_channel("vz", vz)
 
     def status(self):
         raise NotImplementedError("Subclasses should implement this method")
