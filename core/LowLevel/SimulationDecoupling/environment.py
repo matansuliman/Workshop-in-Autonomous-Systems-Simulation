@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from typing import Dict, Iterable, Optional, Union
-import mujoco
 import numpy as np
 
 from ...LowLevel.SimulationDecoupling.mujoco_backend import MujocoBackend
