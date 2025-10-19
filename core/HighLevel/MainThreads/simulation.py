@@ -12,9 +12,6 @@ from ...LowLevel.Utilities.helpers import print_for_gui
 from ...LowLevel.Utilities.globals import CONFIG, LOGGER, ENVIRONMENT
 from ...LowLevel.Utilities.decorators import safe_call
 
-from ...LowLevel.RuntimeOutputs.plots import plot
-
-
 
 class BasicSimulationRunner:
     def __init__(self, orchestrator):
@@ -86,6 +83,8 @@ class SimulationRunner(QObject, BasicSimulationRunner):
         status += str(self._fps)
         status += str(self._timer)
         status += self._orchestrator.status()
+
+        '''
         if self._orchestrator.scene_ended():
             status += "\nScene ended:"
             logs_dict = self._orchestrator.get_logs()
@@ -98,6 +97,7 @@ class SimulationRunner(QObject, BasicSimulationRunner):
             pad_end_pos = np.array([pad_log["x_true"][-1], pad_log["y_true"][-1]])
             delta_pos = drone_end_pos - pad_end_pos
             status += f"\ndelta pos: {print_for_gui(delta_pos)}"
+        '''
 
         return status
 
