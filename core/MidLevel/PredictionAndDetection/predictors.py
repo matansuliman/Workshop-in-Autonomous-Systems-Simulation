@@ -52,12 +52,9 @@ class ArUcoMarkerPredictor(BasicPredictor):
         super().__init__(model=ArUcoMarkerDetector)
         LOGGER.info(f"\t\t\tPredictor: Initiated {self.__class__.__name__}")
 
-    def is_model_stable(self, mode="long_term"):
-        return self._model.is_stable(mode=mode)
-
     def confidante(self, mode="long_term"):
-        """Return True if model has enough data and is stable for the given mode."""
-        return self._model.is_full(mode=mode) and self._model.is_stable(mode=mode)
+        """Return True if model is stable for the given mode."""
+        return self._model.is_stable(mode=mode)
 
     def stream_to_model(self, frame, curr_height):
         self.model.detect(frame, curr_height)
