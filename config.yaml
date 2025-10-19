@@ -30,10 +30,11 @@ logger:
   fmt: "%(log_color)s%(asctime)s [%(levelname)s] %(name)s: %(message)s"
   datefmt: "%Y-%m-%d %H:%M:%S"
 
-plotter:
+log:
   dir_name: outputs
-  ext: png
-
+  plot_ext: png
+  flush_ext: csv
+  flush_interval: 2000
 
 Quadrotor:
   xml_body_name: Quadrotor
