@@ -15,7 +15,7 @@ class BasicModel:
             pos_sensor_name=CONFIG[child_class_name]["sensors"]["pos"],
             vel_sensor_name=CONFIG[child_class_name]["sensors"]["vel"],
         )
-        self._log = Log(name=f"Log_{child_class_name}")
+        self._log = Log(name=f"{child_class_name}")
         ENVIRONMENT.set_body_cda(
             body=self._xml_name, cda=CONFIG[child_class_name]["cda"]
         )
