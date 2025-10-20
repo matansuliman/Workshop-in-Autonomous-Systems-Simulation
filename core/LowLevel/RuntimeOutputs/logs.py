@@ -24,8 +24,8 @@ class Log:
 
         self._plot_ext = ext or CONFIG["log"]["plot_ext"]
         self._flush_ext = ext or CONFIG["log"]["flush_ext"]
-        self._plot_file_path = os.path.join(self._run_dir.__str__(), f"{self._name}.{self._plot_ext}")
-        self._flush_file_path = os.path.join(self._run_dir.__str__(), f"{self._name}.{self._flush_ext}")
+        self._plot_file_path = os.path.join(self._run_dir.__str__(), f"log_{self._name}.{self._plot_ext}")
+        self._flush_file_path = os.path.join(self._run_dir.__str__(), f"log_{self._name}.{self._flush_ext}")
 
 
     # --- Time management ---
@@ -86,7 +86,7 @@ class Log:
         plt.tight_layout()
         if save:
             plt.savefig(self._plot_file_path)
-            LOGGER.debug(f"{self._name} Plotted to {self._plot_file_path}")
+            LOGGER.debug(f"Log: {self._name} Plotted to {self._plot_file_path}")
         if show:
             plt.show()
         plt.close(fig)
@@ -97,7 +97,7 @@ class Log:
     def _flush(self):
         """Write current buffer to disk and clear memory."""
         if not any(len(v) > 0 for v in self._data.values()):
-            LOGGER.debug(f"{self._name} skipped flushing  (no new data).")
+            LOGGER.debug(f"Log: {self._name} skipped flushing  (no new data).")
             return
 
         keys = list(self._data.keys())
@@ -115,4 +115,4 @@ class Log:
             self._data[k].clear()
 
         self._sample_count = 0
-        LOGGER.debug(f"{self._name} Flushed to {self._flush_file_path}")
+        LOGGER.debug(f"Log: {self._name} Flushed to {self._flush_file_path}")
