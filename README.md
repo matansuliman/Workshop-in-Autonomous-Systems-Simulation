@@ -93,7 +93,7 @@ The drone uses a bottom camera → ArUco detection → simple predictor → PID 
 - **`globals.py`** – Global variables: config, logger, environment reference.
 
 ### Output & Plots
-- **`plots.py`** – Generates plots (PNG) from simulation logs upon exit.
+- **`log.py`** – Save models data to CSV and generates plots (PNG) from simulation upon exit.
 
 ### Assets & Scenes
 - **`/skydio_x2`** – MuJoCo XML files (world and objects), textures, and other assets.
